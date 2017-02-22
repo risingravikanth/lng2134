@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.lnganalysis.entities.domain">
+	<class name="History">
+		<id name="id">
+			<generator class="increment"/>
+		</id>
+		<property name="createdDate" type="date" column="CREATED_DATE"/>
+		<property name="explorationCount" type="int" column="EXPLORATION_COUNT"/>
+		<property name="crudeOilCount" type="int" column="CRUDEOIL_COUNT"/>
+		<property name="naturalGasCount" type="int" column="NATURALGAS_COUNT"/>
+		<property name="refineriesCount" type="int" column="REFINERIES_COUNT"/>
+		<property name="storageCount" type="int" column="STORAGE_COUNT"/>
+		<property name="pipelinesCount" type="int" column="PIPELINES_COUNT"/> 
+		<property name="lngCount" type="int" column="LNG_COUNT"/>
+		
+		<many-to-one name="user" column="user_id" class="User" not-null="true" lazy="false"/>
+	</class>
+	
+</hibernate-mapping>	
