@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN" "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+<web-app id="WebApp_ID">
+
+ <context-param> 
+    <param-name>file-upload</param-name> 
+    <param-value>C:\Jeevan\Personal\OGanalysisData\tempcopy\</param-value> 
+    <description>Location to store uploaded file</description> 
+</context-param>
+<context-param>
+        <param-name>log4jConfig</param-name>
+        <param-value>WEB-INF/log4j.properties</param-value>
+</context-param>
+	<servlet>
+		<servlet-name>uploaddata</servlet-name>
+		<servlet-class>com.lnganalysis.actions.UploadDataServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>loginAction</servlet-name>
+		<servlet-class>com.lnganalysis.actions.LoginServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>updatePwd</servlet-name>
+		<servlet-class>com.lnganalysis.actions.ChangePasswordServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>historyServlet</servlet-name>
+		<servlet-class>com.lnganalysis.actions.HistoryServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>updateUser</servlet-name>
+		<servlet-class>com.lnganalysis.actions.UpdateUserDetails</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>logoutServlet</servlet-name>
+		<servlet-class>com.lnganalysis.actions.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>usersmanage</servlet-name>
+		<servlet-class>com.lnganalysis.actions.UserManagementServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>datamanage</servlet-name>
+		<servlet-class>com.lnganalysis.actions.DataManagementServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>forgotpwdservlet</servlet-name>
+		<servlet-class>com.lnganalysis.actions.MailSendServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>resetpwdservlet</servlet-name>
+		<servlet-class>com.lnganalysis.actions.ResetPasswordServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>userauditservlet</servlet-name>
+		<servlet-class>com.lnganalysis.actions.UserAuditServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>recordscount</servlet-name>
+		<servlet-class>com.lnganalysis.actions.RecordCountServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>jsppages</servlet-name>
+		<servlet-class>com.lnganalysis.actions.ViewPageServlet</servlet-class>
+	</servlet>
+	
+		
+<!-- 	<servlet>
+		<servlet-name>loginJspPage</servlet-name>
+		<jsp-file>/jsp/login.jsp</jsp-file>
+	</servlet> This is for url to Jsp page mapping--> 
+	<servlet-mapping>
+		<servlet-name>userauditservlet</servlet-name>
+		<url-pattern>useraudit</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>resetpwdservlet</servlet-name>
+		<url-pattern>resetpwd</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>forgotpwdservlet</servlet-name>
+		<url-pattern>forgotpwd</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>datamanage</servlet-name>
+		<url-pattern>data</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>usersmanage</servlet-name>
+		<url-pattern>users</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>historyServlet</servlet-name>
+		<url-pattern>history</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>logoutServlet</servlet-name>
+		<url-pattern>logout</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>uploaddata</servlet-name>
+		<url-pattern>fileupload</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>loginAction</servlet-name>
+		<url-pattern>login</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>updatePwd</servlet-name>
+		<url-pattern>updatepwd</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>updateUser</servlet-name>
+		<url-pattern>updateUser</url-pattern> <!-- THis is the existing one <url-pattern>/fileupload</url-pattern> -->
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>recordscount</servlet-name>
+		<url-pattern>getcount</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>jsppages</servlet-name>
+		<url-pattern>view</url-pattern>
+	</servlet-mapping>
+	<!-- <session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>-->
+	 <listener>
+		<listener-class>com.lnganalysis.listener.SessionListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>com.lnganalysis.listener.ContextListener</listener-class>
+	</listener>
+	<!-- <servlet-mapping>
+			<servlet-name>loginJspPage</servlet-name>
+			<url-pattern>/*</url-pattern>
+	</servlet-mapping> This is for url to Jsp page mapping--> 
+    <welcome-file-list>
+    	<welcome-file>/jsp/login.jsp</welcome-file>
+    	<!-- <welcome-file>/jsp/index.jsp</welcome-file>-->
+    </welcome-file-list>	
+    
+   
+	
+</web-app>
