@@ -31,6 +31,8 @@ public class ReadExcelFile {
 	static final Logger logger=Logger.getLogger(ReadExcelFile.class);
 	static final DataFormatter df=new DataFormatter();
 	static final String BLANK="";
+	static final String SPACE=" ";
+	static final String COMMA=",";
 	public Map<String,List> readExcelData(Workbook wb,List<Tab> tabsList)
 	{
 		logger.info("Class - ReadExcelFile - readExcelData()");
@@ -131,7 +133,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");					
+		StringBuffer recordsList=new StringBuffer(BLANK);					
 		Set<String> columnNamesSet=new HashSet<String>();		
 //		DataFormatter df=new DataFormatter();
 		int linebreak=1;
@@ -164,10 +166,10 @@ public class ReadExcelFile {
 				logger.info("Class - ReadExcelFile - populateContractsData():"+e);
 				totalRecords++;
 				String columnName=getHeaderValues(sheet, columnNo);
-				recordsList.append((row.getRowNum()+1)+",");
+				recordsList.append((row.getRowNum()+1)+COMMA);
 				if(totalRecords==(12*linebreak))
 				{	
-					recordsList.append(" ");// Adding space for rendering in front end;
+					recordsList.append(SPACE);// Adding space for rendering in front end;
 					linebreak++;
 				}	
 				columnNamesSet.add(columnName);
@@ -193,7 +195,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		final String  hypen="-";
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");					
+		StringBuffer recordsList=new StringBuffer(BLANK);					
 		Set<String> columnNamesSet=new HashSet<String>();		
 		int linebreak=1;
 //		DataFormatter df=new DataFormatter();
@@ -319,10 +321,10 @@ public class ReadExcelFile {
 				String columnName=getHeaderValues(sheet, columnNo);
 				if(columnName.contains(".0"))
 					columnName=columnName.substring(0,columnName.length()-2);
-				recordsList.append((row.getRowNum()+1)+",");
+				recordsList.append((row.getRowNum()+1)+COMMA);
 				if(totalRecords==(12*linebreak))
 				{	
-					recordsList.append(" ");// Adding space for rendering in front end;
+					recordsList.append(SPACE);// Adding space for rendering in front end;
 					linebreak++;
 				}	
 				columnNamesSet.add(columnName);
@@ -347,7 +349,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");					
+		StringBuffer recordsList=new StringBuffer(BLANK);					
 		Set<String> columnNamesSet=new HashSet<String>();		
 		int linebreak=1;
 		for(int i=1;i<=rowCount;i++)
@@ -397,10 +399,10 @@ public class ReadExcelFile {
 				logger.info("Class - ReadExcelFile - populateNaturalGasData():"+e);
 				totalRecords++;
 				String columnName=getHeaderValues(sheet, columnNo);
-				recordsList.append((row.getRowNum()+1)+",");
+				recordsList.append((row.getRowNum()+1)+COMMA);
 				if(totalRecords==(12*linebreak))
 				{	
-					recordsList.append(" ");// Adding space for rendering in front end;
+					recordsList.append(SPACE);// Adding space for rendering in front end;
 					linebreak++;
 				}	
 				columnNamesSet.add(columnName);
@@ -429,7 +431,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");					
+		StringBuffer recordsList=new StringBuffer(BLANK);					
 		Set<String> columnNamesSet=new HashSet<String>();		
 		int linebreak=1;
 		for(int i=1;i<=rowCount;i++)
@@ -479,10 +481,10 @@ public class ReadExcelFile {
 				logger.error("Exception in ReadExcelFile - populateCrudeOilData():"+e);
 				totalRecords++;
 				String columnName=getHeaderValues(sheet, columnNo);
-				recordsList.append((row.getRowNum()+1)+",");
+				recordsList.append((row.getRowNum()+1)+COMMA);
 				if(totalRecords==(12*linebreak))
 				{	
-					recordsList.append(" ");// Adding space for rendering in front end;
+					recordsList.append(SPACE);// Adding space for rendering in front end;
 					linebreak++;
 				}	
 				columnNamesSet.add(columnName);
@@ -510,7 +512,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");					
+		StringBuffer recordsList=new StringBuffer(BLANK);					
 		Set<String> columnNamesSet=new HashSet<String>();		
 		int linebreak=1;
 		for(int i=1;i<=rowCount;i++)
@@ -522,7 +524,7 @@ public class ReadExcelFile {
 				columnNo=0;p.setPipeline(null==row.getCell(0) || null==df.formatCellValue(row.getCell(0))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?BLANK:df.formatCellValue(row.getCell(0)));
 				columnNo=1;p.setSubPipelines(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?BLANK:df.formatCellValue(row.getCell(1)));
 				columnNo=2;p.setStatus(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?BLANK:df.formatCellValue(row.getCell(2)));
-				columnNo=3;p.setCommodity(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
+				columnNo=3;p.setCommodity(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
 				columnNo=4;p.setStartPoint(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?BLANK:df.formatCellValue(row.getCell(4)));
 				columnNo=5;p.setEndPoint(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?BLANK:df.formatCellValue(row.getCell(5)));
 				columnNo=6;p.setCountry(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?BLANK:df.formatCellValue(row.getCell(6)));
@@ -537,7 +539,7 @@ public class ReadExcelFile {
 				columnNo=12;p.setRoute(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?BLANK:df.formatCellValue(row.getCell(12)));
 				columnNo=13;p.setPipelineType(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?BLANK:df.formatCellValue(row.getCell(13)));
 				columnNo=14;p.setOnshoreOrOffshore(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?BLANK:df.formatCellValue(row.getCell(14)));
-				columnNo=15;p.setStartDate(null==row.getCell(15) || null==df.formatCellValue(row.getCell(15))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?null:new Date(df.formatCellValue(row.getCell(15))));
+				columnNo=15;p.setStartDate(null==row.getCell(15) || null==df.formatCellValue(row.getCell(15))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?null:new Date(df.formatCellValue(row.getCell(15))));
 				columnNo=16;p.setCommodityDetails(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?BLANK:df.formatCellValue(row.getCell(16)));
 				columnNo=17;p.setBasicDetailsSource(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
 				columnNo=18;p.setBasicDetailNotes(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
@@ -577,10 +579,10 @@ public class ReadExcelFile {
 				logger.error("Exception in ReadExcelFile -populatePipeLinesData():"+e);
 				totalRecords++;
 				String columnName=getHeaderValues(sheet, columnNo);
-				recordsList.append((row.getRowNum()+1)+",");
+				recordsList.append((row.getRowNum()+1)+COMMA);
 				if(totalRecords==(12*linebreak))
 				{	
-					recordsList.append(" ");// Adding space for rendering in front end;
+					recordsList.append(SPACE);// Adding space for rendering in front end;
 					linebreak++;
 				}	
 				columnNamesSet.add(columnName);
@@ -609,7 +611,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");					
+		StringBuffer recordsList=new StringBuffer(BLANK);					
 		Set<String> columnNamesSet=new HashSet<String>();	
 		int linebreak=1;
 		for(int i=1;i<=rowCount;i++)
@@ -705,10 +707,10 @@ public class ReadExcelFile {
 					logger.error("Exception in ReadExcelFile - populateLngData():"+e);
 					totalRecords++;
 					String columnName=getHeaderValues(sheet, columnNo);
-					recordsList.append((row.getRowNum()+1)+",");
+					recordsList.append((row.getRowNum()+1)+COMMA);
 					if(totalRecords==(12*linebreak))
 					{	
-						recordsList.append(" ");// Adding space for rendering in front end;
+						recordsList.append(SPACE);// Adding space for rendering in front end;
 						linebreak++;
 					}	
 					columnNamesSet.add(columnName);
@@ -737,7 +739,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");			
+		StringBuffer recordsList=new StringBuffer(BLANK);			
 		Set<String> columnNamesSet=new HashSet<String>();	
 		int linebreak=1;
 		for(int i=1;i<=rowCount;i++)
@@ -747,39 +749,39 @@ public class ReadExcelFile {
 
 				try
 				{
-					columnNo=0;s.setTankFarm(null==row.getCell(0) || null==df.formatCellValue(row.getCell(0))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?"":df.formatCellValue(row.getCell(0)));
-					columnNo=1;s.setRegion(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?"":df.formatCellValue(row.getCell(1)));
-					columnNo=2;s.setCountry(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?"":df.formatCellValue(row.getCell(2)));
-					columnNo=3;s.setLocation(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?"":df.formatCellValue(row.getCell(3)));
-					columnNo=4;s.setStatus(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?"":df.formatCellValue(row.getCell(4)));
-					columnNo=5;s.setCommencementDate(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?null:new Date(df.formatCellValue(row.getCell(5))));
-					columnNo=6;s.setCommencementSource(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?"":df.formatCellValue(row.getCell(6)));
-					columnNo=7;s.setCurrentOperator(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?"":df.formatCellValue(row.getCell(7)));
-					columnNo=8;s.setCurrentOwners(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?"":df.formatCellValue(row.getCell(8)));
-					columnNo=9;s.setCurrentOwnership(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?0:Double.valueOf(df.formatCellValue(row.getCell(9))));
-					columnNo=10;s.setOwnershipNotes(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?"":df.formatCellValue(row.getCell(10)));
+					columnNo=0;s.setTankFarm(null==row.getCell(0) || null==df.formatCellValue(row.getCell(0))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?BLANK:df.formatCellValue(row.getCell(0)));
+					columnNo=1;s.setRegion(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?BLANK:df.formatCellValue(row.getCell(1)));
+					columnNo=2;s.setCountry(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?BLANK:df.formatCellValue(row.getCell(2)));
+					columnNo=3;s.setLocation(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
+					columnNo=4;s.setStatus(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?BLANK:df.formatCellValue(row.getCell(4)));
+					columnNo=5;s.setCommencementDate(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?null:new Date(df.formatCellValue(row.getCell(5))));
+					columnNo=6;s.setCommencementSource(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?BLANK:df.formatCellValue(row.getCell(6)));
+					columnNo=7;s.setCurrentOperator(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?BLANK:df.formatCellValue(row.getCell(7)));
+					columnNo=8;s.setCurrentOwners(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?BLANK:df.formatCellValue(row.getCell(8)));
+					columnNo=9;s.setCurrentOwnership(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?0:Double.valueOf(df.formatCellValue(row.getCell(9))));
+					columnNo=10;s.setOwnershipNotes(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?BLANK:df.formatCellValue(row.getCell(10)));
 					
 			//		System.out.println("Storage First");
 					
-					columnNo=11;s.setHistoricOperator(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?"":df.formatCellValue(row.getCell(11)));
-					columnNo=12;s.setHistoricOwners(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?"":df.formatCellValue(row.getCell(12)));
-					columnNo=13;s.setHistoricOwnership(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?0:Double.valueOf(df.formatCellValue(row.getCell(13))));
-					columnNo=14;s.setHistoricalEquityYear(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Integer.parseInt(df.formatCellValue(row.getCell(14))));
-					columnNo=15;s.setEquitySource(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?"":df.formatCellValue(row.getCell(15)));
-					columnNo=16;s.setProductsStored(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?"":df.formatCellValue(row.getCell(16)));
-					columnNo=17;s.setModeOfAccess(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?"":df.formatCellValue(row.getCell(17)));
-					columnNo=18;s.setCapacityM3(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?0:Double.valueOf(df.formatCellValue(row.getCell(18))));
-					columnNo=19;s.setCapacityYear(null==row.getCell(19)|| null==df.formatCellValue(row.getCell(19))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(19)))?0:Integer.parseInt(df.formatCellValue(row.getCell(19))));
-					columnNo=20;s.setTanks(null==row.getCell(20)|| null==df.formatCellValue(row.getCell(20))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(20)))?0:Double.valueOf(df.formatCellValue(row.getCell(20))));
+					columnNo=11;s.setHistoricOperator(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?BLANK:df.formatCellValue(row.getCell(11)));
+					columnNo=12;s.setHistoricOwners(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?BLANK:df.formatCellValue(row.getCell(12)));
+					columnNo=13;s.setHistoricOwnership(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?0:Double.valueOf(df.formatCellValue(row.getCell(13))));
+					columnNo=14;s.setHistoricalEquityYear(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Integer.parseInt(df.formatCellValue(row.getCell(14))));
+					columnNo=15;s.setEquitySource(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?BLANK:df.formatCellValue(row.getCell(15)));
+					columnNo=16;s.setProductsStored(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?BLANK:df.formatCellValue(row.getCell(16)));
+					columnNo=17;s.setModeOfAccess(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
+					columnNo=18;s.setCapacityM3(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?0:Double.valueOf(df.formatCellValue(row.getCell(18))));
+					columnNo=19;s.setCapacityYear(null==row.getCell(19)|| null==df.formatCellValue(row.getCell(19))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(19)))?0:Integer.parseInt(df.formatCellValue(row.getCell(19))));
+					columnNo=20;s.setTanks(null==row.getCell(20)|| null==df.formatCellValue(row.getCell(20))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(20)))?0:Double.valueOf(df.formatCellValue(row.getCell(20))));
 					
 			//		System.out.println("Storage second");
 					
-					columnNo=21;s.setTankSizeRange_min_m3(null==row.getCell(21)|| null==df.formatCellValue(row.getCell(21))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(21)))?0:Double.valueOf(df.formatCellValue(row.getCell(21))));
-					columnNo=22;s.setTankSizeRange_max_m3(null==row.getCell(22)|| null==df.formatCellValue(row.getCell(22))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(22)))?0:Double.valueOf(df.formatCellValue(row.getCell(22))));
-					columnNo=23;s.setCapacitySource(null==row.getCell(23)|| null==df.formatCellValue(row.getCell(23))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(23)))?"":df.formatCellValue(row.getCell(23)));
-					columnNo=24;s.setCapitalInvestment(null==row.getCell(24)|| null==df.formatCellValue(row.getCell(24))||("").equalsIgnoreCase(df.formatCellValue(row.getCell(24)))?0:Double.valueOf(df.formatCellValue(row.getCell(24))));
-					columnNo=25;s.setCapexSource(null==row.getCell(25)|| null==df.formatCellValue(row.getCell(25))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(25)))?"":df.formatCellValue(row.getCell(25)));
-					columnNo=26;s.setNotes(null==row.getCell(26)|| null==df.formatCellValue(row.getCell(26))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(26)))?"":df.formatCellValue(row.getCell(26)));
+					columnNo=21;s.setTankSizeRange_min_m3(null==row.getCell(21)|| null==df.formatCellValue(row.getCell(21))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(21)))?0:Double.valueOf(df.formatCellValue(row.getCell(21))));
+					columnNo=22;s.setTankSizeRange_max_m3(null==row.getCell(22)|| null==df.formatCellValue(row.getCell(22))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(22)))?0:Double.valueOf(df.formatCellValue(row.getCell(22))));
+					columnNo=23;s.setCapacitySource(null==row.getCell(23)|| null==df.formatCellValue(row.getCell(23))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(23)))?BLANK:df.formatCellValue(row.getCell(23)));
+					columnNo=24;s.setCapitalInvestment(null==row.getCell(24)|| null==df.formatCellValue(row.getCell(24))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(24)))?0:Double.valueOf(df.formatCellValue(row.getCell(24))));
+					columnNo=25;s.setCapexSource(null==row.getCell(25)|| null==df.formatCellValue(row.getCell(25))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(25)))?BLANK:df.formatCellValue(row.getCell(25)));
+					columnNo=26;s.setNotes(null==row.getCell(26)|| null==df.formatCellValue(row.getCell(26))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(26)))?BLANK:df.formatCellValue(row.getCell(26)));
 					
 					storageList.add(s);
 				}
@@ -788,10 +790,10 @@ public class ReadExcelFile {
 					logger.error("Exception in ReadExcelFile - populateStorageData():"+e);
 					totalRecords++;
 					String columnName=getHeaderValues(sheet, columnNo);
-					recordsList.append((row.getRowNum()+1)+",");
+					recordsList.append((row.getRowNum()+1)+COMMA);
 					if(totalRecords==(12*linebreak))
 					{	
-						recordsList.append(" ");// Adding space for rendering in front end;
+						recordsList.append(SPACE);// Adding space for rendering in front end;
 						linebreak++;
 					}	
 					columnNamesSet.add(columnName);
@@ -818,7 +820,7 @@ public class ReadExcelFile {
 		int rowCount=sheet.getLastRowNum();
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");							
+		StringBuffer recordsList=new StringBuffer(BLANK);							
 		Set<String> columnNamesSet=new HashSet<String>();
 		int linebreak=1;
 		for(int i=1;i<=rowCount;i++)
@@ -945,10 +947,10 @@ public class ReadExcelFile {
 				logger.error("Exception in ReadExcelFile - populateNaturalGasData():"+e);
 				totalRecords++;
 				String columnName=getHeaderValues(sheet, columnNo);
-				recordsList.append((row.getRowNum()+1)+",");
+				recordsList.append((row.getRowNum()+1)+COMMA);
 				if(totalRecords==(12*linebreak))
 				{	
-					recordsList.append(" ");// Adding space for rendering in front end;
+					recordsList.append(SPACE);// Adding space for rendering in front end;
 					linebreak++;
 				}	
 				columnNamesSet.add(columnName);
@@ -978,8 +980,8 @@ public class ReadExcelFile {
 		
 		
 		int totalRecords=0;
-		StringBuffer recordsList=new StringBuffer("");					
-		StringBuffer descriptionList=new StringBuffer("");	
+		StringBuffer recordsList=new StringBuffer(BLANK);					
+//		StringBuffer descriptionList=new StringBuffer(BLANK);	
 		Set<String> columnNamesSet=new HashSet<String>();
 		int linebreak=1;
 		
@@ -990,33 +992,33 @@ public class ReadExcelFile {
 			Exploration e=new Exploration();				
 				try
 				{
-					columnNo=0;e.setBlockNo(null==row.getCell(0) || null==df.formatCellValue(row.getCell(0)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?"":df.formatCellValue(row.getCell(0)));
-					columnNo=1;e.setRegion(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?"":df.formatCellValue(row.getCell(1)));
-					columnNo=2;e.setCountry(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?"":df.formatCellValue(row.getCell(2)));
-					columnNo=3;e.setOnShoreOrOffShore(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?"":df.formatCellValue(row.getCell(3)));
-					columnNo=4;e.setBasin(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?"":df.formatCellValue(row.getCell(4)));
-					columnNo=5;e.setStatus(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?"":df.formatCellValue(row.getCell(5)));
+					columnNo=0;e.setBlockNo(null==row.getCell(0) || null==df.formatCellValue(row.getCell(0)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?BLANK:df.formatCellValue(row.getCell(0)));
+					columnNo=1;e.setRegion(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?BLANK:df.formatCellValue(row.getCell(1)));
+					columnNo=2;e.setCountry(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?BLANK:df.formatCellValue(row.getCell(2)));
+					columnNo=3;e.setOnShoreOrOffShore(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
+					columnNo=4;e.setBasin(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?BLANK:df.formatCellValue(row.getCell(4)));
+					columnNo=5;e.setStatus(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?BLANK:df.formatCellValue(row.getCell(5)));
 					
 		//			System.out.println("Exploration first");
 					
-					columnNo=6;e.setStartDate(null==row.getCell(6) || null==df.formatCellValue(row.getCell(6))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?null:new Date(df.formatCellValue(row.getCell(6))));
-					columnNo=7;e.setOperator(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?"":df.formatCellValue(row.getCell(7)));
-					columnNo=8;e.setEquityParterns(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?"":df.formatCellValue(row.getCell(8)));
-					columnNo=9;e.setSourceEquity(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?"":df.formatCellValue(row.getCell(9)));
-					columnNo=10;e.setArea(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?0:Double.valueOf(df.formatCellValue(row.getCell(10))));
-					columnNo=11;e.setLicenseEnddate(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?null:new Date(df.formatCellValue(row.getCell(11))));
+					columnNo=6;e.setStartDate(null==row.getCell(6) || null==df.formatCellValue(row.getCell(6))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?null:new Date(df.formatCellValue(row.getCell(6))));
+					columnNo=7;e.setOperator(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?BLANK:df.formatCellValue(row.getCell(7)));
+					columnNo=8;e.setEquityParterns(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?BLANK:df.formatCellValue(row.getCell(8)));
+					columnNo=9;e.setSourceEquity(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?BLANK:df.formatCellValue(row.getCell(9)));
+					columnNo=10;e.setArea(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?0:Double.valueOf(df.formatCellValue(row.getCell(10))));
+					columnNo=11;e.setLicenseEnddate(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?null:new Date(df.formatCellValue(row.getCell(11))));
 					
 		//			System.out.println("Exploration second");
 					
-					columnNo=12;e.setWellsDrilled(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?0:Double.valueOf(df.formatCellValue(row.getCell(12))));
-					columnNo=13;e.setTwoDSeismicCompleted(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?0:Double.valueOf(df.formatCellValue(row.getCell(13))));
-					columnNo=14;e.setThreeDSeismic(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| ("").equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Double.valueOf(df.formatCellValue(row.getCell(14))));
-					columnNo=15;e.setMoreInfo(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?"":df.formatCellValue(row.getCell(15)));
-					columnNo=16;e.setNotes(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?"":df.formatCellValue(row.getCell(16)));
-					columnNo=17;e.setSource(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?"":df.formatCellValue(row.getCell(17)));
+					columnNo=12;e.setWellsDrilled(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?0:Double.valueOf(df.formatCellValue(row.getCell(12))));
+					columnNo=13;e.setTwoDSeismicCompleted(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?0:Double.valueOf(df.formatCellValue(row.getCell(13))));
+					columnNo=14;e.setThreeDSeismic(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Double.valueOf(df.formatCellValue(row.getCell(14))));
+					columnNo=15;e.setMoreInfo(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?BLANK:df.formatCellValue(row.getCell(15)));
+					columnNo=16;e.setNotes(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?BLANK:df.formatCellValue(row.getCell(16)));
+					columnNo=17;e.setSource(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
 		//			System.out.println(row.getCell(18));
 		//			System.out.println(row.getCell(18).getStringCellValue());
-					columnNo=18;e.setLicenseNo(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18)) || ("").equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?"":df.formatCellValue(row.getCell(18)));
+					columnNo=18;e.setLicenseNo(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
 //					columnNo=19;e.setRecordId(null==row.getCell(19)?0:Double.valueOf(row.getCell(19).getNumericCellValue()).intValue());
 					
 					explorationDataList.add(e);
@@ -1026,10 +1028,10 @@ public class ReadExcelFile {
 					logger.error("Exception in ReadExcelFile - populateExplorationData():"+ex);
 					totalRecords++;
 					String columnName=getHeaderValues(sheet, columnNo);
-					recordsList.append((row.getRowNum()+1)+",");
+					recordsList.append((row.getRowNum()+1)+COMMA);
 					if(totalRecords==(12*linebreak))
 					{	
-						recordsList.append(" ");// Adding space for rendering in front end;
+						recordsList.append(SPACE);// Adding space for rendering in front end;
 						linebreak++;
 					}	
 					columnNamesSet.add(columnName);																
@@ -1039,7 +1041,7 @@ public class ReadExcelFile {
 		if(totalRecords>0)
 		{
 			createTabData(tab,sheet.getSheetName().toUpperCase(),totalRecords,recordsList,columnNamesSet);
-			logger.info("Exploration totalRecords:"+ totalRecords+" columnNames:"+descriptionList+"recordsList:"+recordsList);
+			logger.info("Exploration totalRecords:"+ totalRecords+"recordsList:"+recordsList);
 		}
 		
 		logger.info("Total objects set for Exploration:"+explorationDataList.size());
@@ -1049,7 +1051,7 @@ public class ReadExcelFile {
 	private void createTabData(Tab tab,String sheetName,int totalRecords,StringBuffer recordsList,Set<String> columnNames)
 	{
 		logger.info("Class - ReadExcelFile - createTabData()");
-		StringBuffer columnList=new StringBuffer("");
+		StringBuffer columnList=new StringBuffer(BLANK);
 		tab.setName(sheetName);
 		if(recordsList.charAt(recordsList.length()-1)==32)
 			recordsList.deleteCharAt(recordsList.length()-2);
@@ -1062,7 +1064,7 @@ public class ReadExcelFile {
 		{
 			columnList.append(columnNameArray[i]);
 			if(i<columnNameArray.length-1)
-				columnList.append(",");
+				columnList.append(COMMA);
 		}
 		
 		tab.setDescription(columnList.toString());
