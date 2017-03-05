@@ -5,16 +5,14 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 
 import com.lnganalysis.config.DbConfiguration;
 import com.lnganalysis.dao.domain.DomainDao;
-import com.lnganalysis.entities.domain.CrudeOil;
-import com.lnganalysis.entities.domain.Exploration;
 import com.lnganalysis.entities.domain.NaturalGas;
 
 public class NaturalGasDaoImpl implements DomainDao {
@@ -148,32 +146,89 @@ public class NaturalGasDaoImpl implements DomainDao {
 		Session session=sessionFactory.openSession();								
 		try
 		{
-			logger.info("Class - NaturalGasDaoImpl - delete()");
+			logger.info("Class - NaturalGasDaoImpl - delete(Set<String>)");
 			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete NaturalGas where field=:name");
 			for(String name:names)
 			{
-				
-				Criteria criteria=session.createCriteria(NaturalGas.class);
-				criteria.add(Restrictions.eq("field", name));
-				List list=criteria.list();
-				for(int j=0;j<list.size();j++)
-				{
-					NaturalGas naturalGas=(NaturalGas)list.get(j);
-					session.delete(naturalGas);
-				}
+				query.setParameter("name", name);
+				query.executeUpdate();
 			}
+//			for(String name:names)
+//			{
+//				
+//				Criteria criteria=session.createCriteria(NaturalGas.class);
+//				criteria.add(Restrictions.eq("field", name));
+//				List list=criteria.list();
+//				for(int j=0;j<list.size();j++)
+//				{
+//					NaturalGas naturalGas=(NaturalGas)list.get(j);
+//					session.delete(naturalGas);
+//				}
+//			}
 														
 			tx.commit();
 		}
 		catch(Exception e)
 		{
-			logger.error("Exception in NaturalGasDaoImpl - Method delete():"+e);
+			logger.error("Exception in NaturalGasDaoImpl - Method delete(Set<String>):"+e);
 			throw e;
 		}
 		finally
 		{
 			session.close();
 		}	
+	}
+
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();								
+		try
+		{
+			logger.info("Class - NaturalGasDaoImpl - delete(name)");
+			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete NaturalGas where field=:name");			
+			query.setParameter("name", name);
+			query.executeUpdate();			
+																	
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in NaturalGasDaoImpl - Method delete(name):"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}
+	}
+
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();	
+		List<String> terminals=null;
+		try
+		{
+			logger.info("Class - NaturalGasDaoImpl - readTerminals()");
+			Transaction tx=session.beginTransaction();			
+			Query query=session.createQuery("select distinct field from NaturalGas");					
+			terminals=(List<String>)query.list();
+								
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in NaturalGasDaoImpl - Method readTerminals():"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		return terminals;
 	}
 
 	

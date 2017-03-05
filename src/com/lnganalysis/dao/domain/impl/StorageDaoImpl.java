@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -152,31 +153,90 @@ public class StorageDaoImpl implements DomainDao {
 		Session session=sessionFactory.openSession();								
 		try
 		{
-			logger.info("Class - StorageDaoImpl - delete()");
+			logger.info("Class - StorageDaoImpl - delete(Set<String>)");
 			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete Storage where tankFarm=:name");
 			for(String name:names)
 			{
-				
-				Criteria criteria=session.createCriteria(Storage.class);
-				criteria.add(Restrictions.eq("tankFarm", name));
-				List list=criteria.list();
-				for(int j=0;j<list.size();j++)
-				{
-					Storage storage=(Storage)list.get(j);
-					session.delete(storage);
-				}
+				query.setParameter("name",name);
+				query.executeUpdate();
 			}
+//			for(String name:names)
+//			{
+//				
+//				Criteria criteria=session.createCriteria(Storage.class);
+//				criteria.add(Restrictions.eq("tankFarm", name));
+//				List list=criteria.list();
+//				for(int j=0;j<list.size();j++)
+//				{
+//					Storage storage=(Storage)list.get(j);
+//					session.delete(storage);
+//				}
+//			}
 														
 			tx.commit();
 		}
 		catch(Exception e)
 		{
-			logger.error("Exception in StorageDaoImpl - Method delete():"+e);
+			logger.error("Exception in StorageDaoImpl - Method delete(Set<String>):"+e);
 			throw e;
 		}
 		finally
 		{
 			session.close();
 		}	
+	}
+
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();								
+		try
+		{
+			logger.info("Class - StorageDaoImpl - delete(name)");
+			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete Storage where tankFarm=:name");
+			query.setParameter("name",name);
+			query.executeUpdate();
+			
+			
+														
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in StorageDaoImpl - Method delete(name):"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+	}
+
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();	
+		List<String> terminals=null;
+		try
+		{
+			logger.info("Class - StorageDaoImpl - readTerminals()");
+			Transaction tx=session.beginTransaction();			
+			Query query=session.createQuery("select distinct tankFarm from Storage");					
+			terminals=(List<String>)query.list();
+								
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in StorageDaoImpl - Method readTerminals():"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		return terminals;
 	}
 }

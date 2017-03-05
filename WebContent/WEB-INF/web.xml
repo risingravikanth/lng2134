@@ -67,6 +67,10 @@
 		<servlet-name>jsppages</servlet-name>
 		<servlet-class>com.lnganalysis.actions.ViewPageServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>terminalData</servlet-name>
+		<servlet-class>com.lnganalysis.actions.TerminalManagementServlet</servlet-class>
+	</servlet>
 	
 		
 <!-- 	<servlet>
@@ -130,6 +134,10 @@
 		<servlet-name>jsppages</servlet-name>
 		<url-pattern>view</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>terminalData</servlet-name>
+		<url-pattern>terminals</url-pattern>
+	</servlet-mapping>
 	<!-- <session-config>
 		<session-timeout>1</session-timeout>
 	</session-config>-->
@@ -147,8 +155,6 @@
     <welcome-file-list>
     	<welcome-file>/jsp/login.jsp</welcome-file>
     	<!-- <welcome-file>/jsp/index.jsp</welcome-file>-->
-    </welcome-file-list>	
-    
-   
+    </welcome-file-list>	       
 	
 </web-app>

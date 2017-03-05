@@ -39,7 +39,10 @@
 										<a href="${pageContext.request.contextPath}/view?page=usermngmt">User Management</a>
 									</li>
 									<li>
-										<a href="${pageContext.request.contextPath}/view?page=datamngmt">Data Management</a>
+										<a href="${pageContext.request.contextPath}/view?page=datamngmt">Data Management</a>																							
+									</li>
+									<li>
+										<a href="${pageContext.request.contextPath}/view?page=terminalmngmt">Terminal Management</a>																							
 									</li>
 									<li>
 										<a href="${pageContext.request.contextPath}/view?page=resetpwd">Reset Password</a>

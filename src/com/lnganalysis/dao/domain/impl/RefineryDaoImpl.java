@@ -5,17 +5,14 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 
 import com.lnganalysis.config.DbConfiguration;
 import com.lnganalysis.dao.domain.DomainDao;
-import com.lnganalysis.entities.domain.CrudeOil;
-import com.lnganalysis.entities.domain.Exploration;
-import com.lnganalysis.entities.domain.NaturalGas;
 import com.lnganalysis.entities.domain.Refinery;
 
 public class RefineryDaoImpl implements DomainDao{
@@ -207,31 +204,101 @@ public class RefineryDaoImpl implements DomainDao{
 		Session session=sessionFactory.openSession();								
 		try
 		{
-			logger.info("Class - RefineryDaoImpl - delete()");
+			logger.info("Class - RefineryDaoImpl - delete(Set<String>)");
 			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete Refinery where name=:name");
 			for(String name:names)
 			{
-				
-				Criteria criteria=session.createCriteria(Refinery.class);
-				criteria.add(Restrictions.eq("name", name));
-				List list=criteria.list();
-				for(int j=0;j<list.size();j++)
-				{
-					Refinery refinery=(Refinery)list.get(j);
-					session.delete(refinery);
-				}
+				query.setParameter("name",name);
+				query.executeUpdate();
 			}
+//			for(String name:names)
+//			{
+//				
+//				Criteria criteria=session.createCriteria(Refinery.class);
+//				criteria.add(Restrictions.eq("name", name));
+//				List list=criteria.list();
+//				for(int j=0;j<list.size();j++)
+//				{
+//					Refinery refinery=(Refinery)list.get(j);
+//					session.delete(refinery);
+//				}
+//			}
 														
 			tx.commit();
 		}
 		catch(Exception e)
 		{
-			logger.error("Exception in RefineryDaoImpl - Method delete():"+e);
+			logger.error("Exception in RefineryDaoImpl - Method delete(Set<String>):"+e);
 			throw e;
 		}
 		finally
 		{
 			session.close();
 		}	
+	}
+
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();								
+		try
+		{
+			logger.info("Class - RefineryDaoImpl - delete(name)");
+			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete Refinery where name=:name");
+			query.setParameter("name",name);
+			query.executeUpdate();
+			
+//			for(String name:names)
+//			{
+//				
+//				Criteria criteria=session.createCriteria(Refinery.class);
+//				criteria.add(Restrictions.eq("name", name));
+//				List list=criteria.list();
+//				for(int j=0;j<list.size();j++)
+//				{
+//					Refinery refinery=(Refinery)list.get(j);
+//					session.delete(refinery);
+//				}
+//			}
+														
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in RefineryDaoImpl - Method delete(name):"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+	}
+
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();	
+		List<String> terminals=null;
+		try
+		{
+			logger.info("Class - RefineryDaoImpl - readTerminals()");
+			Transaction tx=session.beginTransaction();			
+			Query query=session.createQuery("select distinct name from Refinery");					
+			terminals=(List<String>)query.list();
+								
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in RefineryDaoImpl - Method readTerminals():"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		return terminals;
 	}
 }

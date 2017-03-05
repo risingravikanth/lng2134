@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,7 +15,6 @@ import org.hibernate.criterion.Restrictions;
 import com.lnganalysis.config.DbConfiguration;
 import com.lnganalysis.dao.domain.DomainDao;
 import com.lnganalysis.entities.domain.Lng;
-import com.lnganalysis.entities.source.ImportCountries;
 
 public class LngDaoImpl implements DomainDao {
 	private SessionFactory sessionFactory=DbConfiguration.getSessionFactory();
@@ -31,8 +31,7 @@ public class LngDaoImpl implements DomainDao {
 			for(Object e : list)
 			{				
 				Lng lng=(Lng)e;
-				session.save(lng);
-				
+				session.save(lng);				
 			}
 			tx.commit();
 		}
@@ -183,32 +182,90 @@ public class LngDaoImpl implements DomainDao {
 				Session session=sessionFactory.openSession();								
 				try
 				{
-					logger.info("Class - LngDaoImpl - delete()");
+					logger.info("Class - LngDaoImpl - delete(Set(<String>)");
 					Transaction tx=session.beginTransaction();
+					Query query=session.createQuery("delete Lng where name=:name");
 					for(String name:names)
 					{
-						
-						Criteria criteria=session.createCriteria(Lng.class);
-						criteria.add(Restrictions.eq("name", name));
-						List list=criteria.list();
-						for(int j=0;j<list.size();j++)
-						{
-							Lng lng=(Lng)list.get(j);
-							session.delete(lng);
-						}
+						query.setParameter("name",name);
+						query.executeUpdate();
 					}
+//					for(String name:names)
+//					{
+//						
+//						Criteria criteria=session.createCriteria(Lng.class);
+//						criteria.add(Restrictions.eq("name", name));
+//						List list=criteria.list();
+//						for(int j=0;j<list.size();j++)
+//						{
+//							Lng lng=(Lng)list.get(j);
+//							session.delete(lng);
+//						}
+//					}
 																
 					tx.commit();
 				}
 				catch(Exception e)
 				{
-					logger.error("Exception in LngDaoImpl - Method delete():"+e);
+					logger.error("Exception in LngDaoImpl - Method delete(Set(<String>):"+e);
 					throw e;
 				}
 				finally
 				{
 					session.close();
 				}	
+	}
+
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();								
+		try
+		{
+			logger.info("Class - LngDaoImpl - delete(String)");
+			Transaction tx=session.beginTransaction();			
+				Query query=session.createQuery("delete Lng where name =:name");
+//				criteria.add(Restrictions.eq("contractIndicator", name));
+//				List list=criteria.list();				
+				query.setParameter("name", name);
+				query.executeUpdate();
+								
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in LngDaoImpl - Method delete(String):"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+	}
+
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();	
+		List<String> terminals=null;
+		try
+		{
+			logger.info("Class - LngDaoImpl - readTerminals()");
+			Transaction tx=session.beginTransaction();			
+			Query query=session.createQuery("select distinct name from Lng");			
+			terminals=(List<String>)query.list();							
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in LngDaoImpl - Method readTerminals():"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		return terminals;
 	}
 
 }

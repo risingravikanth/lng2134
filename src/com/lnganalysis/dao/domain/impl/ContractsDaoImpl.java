@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +14,6 @@ import org.hibernate.criterion.Restrictions;
 import com.lnganalysis.config.DbConfiguration;
 import com.lnganalysis.dao.domain.DomainDao;
 import com.lnganalysis.entities.domain.Contracts;
-import com.lnganalysis.entities.domain.PipeLine;
 
 public class ContractsDaoImpl implements DomainDao{
 	private static SessionFactory sessionFactory=DbConfiguration.getSessionFactory();
@@ -76,20 +76,51 @@ public class ContractsDaoImpl implements DomainDao{
 		Session session=sessionFactory.openSession();								
 		try
 		{
-			logger.info("Class - ContractsDaoImpl - delete()");
+			logger.info("Class - ContractsDaoImpl - delete(Set<String> names)");
 			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete Contracts where contractIndicator=:name");
 			for(String name:names)
 			{
-				
-				Criteria criteria=session.createCriteria(Contracts.class);
-				criteria.add(Restrictions.eq("contractIndicator", name));
-				List list=criteria.list();
-				for(int j=0;j<list.size();j++)
-				{
-					Contracts contracts=(Contracts)list.get(j);
-					session.delete(contracts);
-				}
-			}													
+				query.setParameter("name", name);
+				query.executeUpdate();
+			}
+//			for(String name:names)
+//			{
+//				
+//				Criteria criteria=session.createCriteria(Contracts.class);
+//				criteria.add(Restrictions.eq("contractIndicator", name));
+//				List list=criteria.list();
+//				for(int j=0;j<list.size();j++)
+//				{
+//					Contracts contracts=(Contracts)list.get(j);
+//					session.delete(contracts);
+//				}
+//			}													
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in ContractsDaoImpl - Method delete(Set<String> names):"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		
+	}
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();								
+		try
+		{
+			logger.info("Class - ContractsDaoImpl - delete()");
+			Transaction tx=session.beginTransaction();			
+				Query query=session.createQuery("delete Contracts where contractIndicator =:name");	
+				query.setParameter("name", name);
+				query.executeUpdate();
+								
 			tx.commit();
 		}
 		catch(Exception e)
@@ -101,7 +132,30 @@ public class ContractsDaoImpl implements DomainDao{
 		{
 			session.close();
 		}	
-		
+	}
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();	
+		List<String> terminals=null;
+		try
+		{
+			logger.info("Class - ContractsDaoImpl - readTerminals()");
+			Transaction tx=session.beginTransaction();			
+			Query query=session.createQuery("select distinct contractIndicator from Contracts");				
+			terminals=(List<String>)query.list();						
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in ContractsDaoImpl - Method readTerminals():"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		return terminals;
 	}
 
 }

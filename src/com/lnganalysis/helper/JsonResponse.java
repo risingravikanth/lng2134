@@ -307,4 +307,17 @@ public class JsonResponse {
 		}	
 		return response;
 	}
+	public static String createTerminalsResponse(List<String> terminalsList)
+	{
+		String response=null;		
+		JSONArray array=new JSONArray();
+		for(String terminal:terminalsList)
+		{
+			JSONObject jsonObj=new JSONObject();										
+			jsonObj.put("name",terminal);
+			array.add(jsonObj);
+		}
+		response=array.toString();
+		return response;
+	}
 }

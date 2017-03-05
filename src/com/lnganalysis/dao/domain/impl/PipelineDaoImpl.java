@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -153,31 +154,88 @@ public class PipelineDaoImpl implements DomainDao{
 		Session session=sessionFactory.openSession();								
 		try
 		{
-			logger.info("Class - pipeLineDaoImpl - delete()");
+			logger.info("Class - pipeLineDaoImpl - delete(Set<String>)");
 			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete PipeLine where pipeline=:name");
 			for(String name:names)
 			{
-				
-				Criteria criteria=session.createCriteria(PipeLine.class);
-				criteria.add(Restrictions.eq("pipeline", name));
-				List list=criteria.list();
-				for(int j=0;j<list.size();j++)
-				{
-					PipeLine pipeLine=(PipeLine)list.get(j);
-					session.delete(pipeLine);
-				}
-			}													
+				query.setParameter("name",name);
+				query.executeUpdate();
+			}
+//			for(String name:names)
+//			{
+//				
+//				Criteria criteria=session.createCriteria(PipeLine.class);
+//				criteria.add(Restrictions.eq("pipeline", name));
+//				List list=criteria.list();
+//				for(int j=0;j<list.size();j++)
+//				{
+//					PipeLine pipeLine=(PipeLine)list.get(j);
+//					session.delete(pipeLine);
+//				}
+//			}													
 			tx.commit();
 		}
 		catch(Exception e)
 		{
-			logger.error("Exception in pipeLineDaoImpl - Method delete():"+e);
+			logger.error("Exception in pipeLineDaoImpl - Method delete(Set<String>):"+e);
 			throw e;
 		}
 		finally
 		{
 			session.close();
 		}	
+	}
+
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();								
+		try
+		{
+			logger.info("Class - pipeLineDaoImpl - delete(name)");
+			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete PipeLine where pipeline=:name");			
+			query.setParameter("name",name);
+			query.executeUpdate();													
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in pipeLineDaoImpl - Method delete(name):"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		
+	}
+
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();	
+		List<String> terminals=null;
+		try
+		{
+			logger.info("Class - pipeLineDaoImpl - readTerminals()");
+			Transaction tx=session.beginTransaction();			
+			Query query=session.createQuery("select distinct pipeline from PipeLine");					
+			terminals=(List<String>)query.list();
+								
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in pipeLineDaoImpl - Method readTerminals():"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		return terminals;
 	}
 
 

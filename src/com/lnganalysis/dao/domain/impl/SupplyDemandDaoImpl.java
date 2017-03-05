@@ -70,4 +70,16 @@ public class SupplyDemandDaoImpl implements DomainDao {
 
 	}
 
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

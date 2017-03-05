@@ -873,7 +873,7 @@ public class DataValidationHelper {
 								totalEquityStakes=totalEquityStakes+pipeLine.getEquityStakes();
 							}
 						}
-						if(totalEquityStakes==100)	
+						if(round(totalEquityStakes)==100)	
 						{	
 							tracker.add(pipeLineDomainObject.getPipeline());
 							return true;
@@ -897,7 +897,7 @@ public class DataValidationHelper {
 								totalEquityStakes=totalEquityStakes+lng.getEquityStakes();
 							}
 						}
-						if(totalEquityStakes==100)	
+						if(round(totalEquityStakes)==100)	
 						{	
 							tracker.add(lngDomainObject.getName());
 							return true;
@@ -921,7 +921,7 @@ public class DataValidationHelper {
 								totalEquityStakes=totalEquityStakes+refinery.getCurrentEquityStakes();
 							}
 						}
-						if(totalEquityStakes==100)	
+						if(round(totalEquityStakes)==100)	
 						{	
 							tracker.add(refineryDomainObject.getName());
 							return true;
@@ -955,7 +955,7 @@ public class DataValidationHelper {
 								totalHistoricEquityStakes=totalHistoricEquityStakes+lng.getHistoricEquityStake();
 							}
 						}
-						if(totalHistoricEquityStakes==100)	
+						if(round(totalHistoricEquityStakes)==100)	
 						{	
 							tracker.add(lngDomainObject.getName());
 							return true;
@@ -983,7 +983,7 @@ public class DataValidationHelper {
 								totalHistoricEquityStakes=totalHistoricEquityStakes+refinery.getHistoricEquityStakes();
 							}
 						}
-						if(totalHistoricEquityStakes==100)	
+						if(round(totalHistoricEquityStakes)==100)	
 						{	
 							tracker.add(refineryDomainObject.getName());
 							return true;
@@ -1015,7 +1015,7 @@ public class DataValidationHelper {
 									totalCurrentOwnerShip=totalCurrentOwnerShip+storage.getCurrentOwnership();
 								}
 							}
-							if(totalCurrentOwnerShip==100)	
+							if(round(totalCurrentOwnerShip)==100)	
 							{	
 								tracker.add(storageDomainObject.getTankFarm());
 								return true;
@@ -1041,7 +1041,7 @@ public class DataValidationHelper {
 									totalCurrentOwnerShip=totalCurrentOwnerShip+crudeOil.getCurrentOwnership();
 								}
 							}
-							if(totalCurrentOwnerShip==100)	
+							if(round(totalCurrentOwnerShip)==100)	
 							{	
 								tracker.add(crudeOilDomainObject.getField());
 								return true;
@@ -1067,7 +1067,7 @@ public class DataValidationHelper {
 									totalCurrentOwnerShip=totalCurrentOwnerShip+naturalGas.getCurrentOwnership();
 								}
 							}
-							if(totalCurrentOwnerShip==100)	
+							if(round(totalCurrentOwnerShip)==100)	
 							{	
 								tracker.add(naturalGasDomainObject.getField());
 								return true;
@@ -1099,7 +1099,7 @@ public class DataValidationHelper {
 										totalHistoricOwnerShip=totalHistoricOwnerShip+storage.getHistoricOwnership();
 									}
 								}
-								if(totalHistoricOwnerShip==100)	
+								if(round(totalHistoricOwnerShip)==100)	
 								{	
 									tracker.add(storageDomainObject.getTankFarm());
 									return true;
@@ -1126,7 +1126,7 @@ public class DataValidationHelper {
 										totalHistoricOwnerShip=totalHistoricOwnerShip+crudeOil.getHistoricOwnership();
 									}
 								}
-								if(totalHistoricOwnerShip==100)	
+								if(round(totalHistoricOwnerShip)==100)	
 								{	
 									tracker.add(crudeOilDomainObject.getField());
 									return true;
@@ -1153,7 +1153,7 @@ public class DataValidationHelper {
 										totalHistoricOwnerShip=totalHistoricOwnerShip+naturalGas.getHistoricOwnership();
 									}
 								}
-								if(totalHistoricOwnerShip==100)	
+								if(round(totalHistoricOwnerShip)==100)	
 								{	
 									tracker.add(naturalGasDomainObject.getField());
 									return true;
@@ -1546,6 +1546,10 @@ public class DataValidationHelper {
 				description.add(ApplicationConstants.COLUMN_HEADER_PIPELINE_TYPE);
 		}
 		return description;
+	}
+	private double round(double value)
+	{
+		return (double)(Math.round((value)*100)/100);
 	}
 //	public void populateAllColumnsListsFromDB()
 //	{

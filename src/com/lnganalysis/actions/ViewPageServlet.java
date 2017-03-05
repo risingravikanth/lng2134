@@ -38,6 +38,8 @@ public class ViewPageServlet extends HttpServlet{
 				 rq=request.getRequestDispatcher(JspPageConstants.RESET_PWD_JSP);
 			 else if(null!=page && ("useraudit").equalsIgnoreCase(page))
 				 rq=request.getRequestDispatcher(JspPageConstants.USER_AUDIT_JSP);
+			 else if(null!=page && ("terminalmngmt").equalsIgnoreCase(page))
+				 rq=request.getRequestDispatcher(JspPageConstants.TERMINAL_MNGMT_JSP);
 			 else if(null!=page && ("profile").equalsIgnoreCase(page))
 			 {
 				 HttpSession session=request.getSession();

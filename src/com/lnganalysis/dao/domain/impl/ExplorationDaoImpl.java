@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -145,18 +146,24 @@ public class ExplorationDaoImpl implements DomainDao{
 		{
 			logger.info("Class - ExplorationDaoImpl - delete()");
 			Transaction tx=session.beginTransaction();
+			Query query=session.createQuery("delete Exploration where blockNo=:name");
 			for(String name:names)
 			{
-				
-				Criteria criteria=session.createCriteria(Exploration.class);
-				criteria.add(Restrictions.eq("blockNo", name));
-				List list=criteria.list();
-				for(int j=0;j<list.size();j++)
-				{
-					Exploration exploration=(Exploration)list.get(j);
-					session.delete(exploration);
-				}
+				query.setParameter("name", name);
+				query.executeUpdate();
 			}
+//			for(String name:names)
+//			{
+//				
+//				Criteria criteria=session.createCriteria(Exploration.class);
+//				criteria.add(Restrictions.eq("blockNo", name));
+//				List list=criteria.list();
+//				for(int j=0;j<list.size();j++)
+//				{
+//					Exploration exploration=(Exploration)list.get(j);
+//					session.delete(exploration);
+//				}
+//			}
 														
 			tx.commit();
 		}
@@ -169,6 +176,61 @@ public class ExplorationDaoImpl implements DomainDao{
 		{
 			session.close();
 		}	
+	}
+
+	@Override
+	public void delete(String name) throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();								
+		try
+		{
+			logger.info("Class - ExplorationDaoImpl - delete(name)");
+			Transaction tx=session.beginTransaction();			
+				Query query=session.createQuery("delete Exploration where blockNo =:name");
+//				criteria.add(Restrictions.eq("contractIndicator", name));
+//				List list=criteria.list();				
+				query.setParameter("name", name);
+				query.executeUpdate();
+								
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in ExplorationDaoImpl - Method delete(name):"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+	}
+
+	@Override
+	public List<String> readTerminals() throws Exception {
+		// TODO Auto-generated method stub
+		Session session=sessionFactory.openSession();	
+		List<String> terminals=null;
+		try
+		{
+			logger.info("Class - ExplorationDaoImpl - readTerminals()");
+			Transaction tx=session.beginTransaction();			
+			Query query=session.createQuery("select distinct blockNo from Exploration");
+//				criteria.add(Restrictions.eq("contractIndicator", name));
+//				List list=criteria.list();								
+				terminals=(List<String>)query.list();
+								
+			tx.commit();
+		}
+		catch(Exception e)
+		{
+			logger.error("Exception in ExplorationDaoImpl - Method readTerminals():"+e);
+			throw e;
+		}
+		finally
+		{
+			session.close();
+		}	
+		return terminals;
 	}
 
 	

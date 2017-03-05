@@ -9,6 +9,7 @@ public interface DomainDao {
 	public List<Object> read();
 	public int getLastRecordNum()throws Exception;
 	public void delete(Set<String> names)throws Exception;
-	
+	public void delete(String name)throws Exception; //This method deletes records of selected terminal
+	public List<String> readTerminals() throws Exception;
 	
 }
