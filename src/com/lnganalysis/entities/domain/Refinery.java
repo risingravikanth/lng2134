@@ -88,6 +88,11 @@ public class Refinery {
     private double kerojet;
     private String benzeneSaturationUnit;
     private String productsSources;
+    private String licensors;
+    private int maintananceStartDate;
+    private int maintananceEndDate;
+    private String maintananceNote;
+    private double cduProducingCapacity;
 	public String getName() {
 		return name;
 	}
@@ -623,6 +628,37 @@ public class Refinery {
 	}
 	public void setProductsSources(String productsSources) {
 		this.productsSources = productsSources;
+	}
+	
+	public int getMaintananceStartDate() {
+		return maintananceStartDate;
+	}
+	public void setMaintananceStartDate(int maintananceStartDate) {
+		this.maintananceStartDate = maintananceStartDate;
+	}
+	public int getMaintananceEndDate() {
+		return maintananceEndDate;
+	}
+	public void setMaintananceEndDate(int maintananceEndDate) {
+		this.maintananceEndDate = maintananceEndDate;
+	}
+	public String getMaintananceNote() {
+		return maintananceNote;
+	}
+	public void setMaintananceNote(String maintananceNote) {
+		this.maintananceNote = maintananceNote;
+	}	
+	public String getLicensors() {
+		return licensors;
+	}
+	public void setLicensors(String licensors) {
+		this.licensors = licensors;
+	}
+	public double getCduProducingCapacity() {
+		return cduProducingCapacity;
+	}
+	public void setCduProducingCapacity(double cduProducingCapacity) {
+		this.cduProducingCapacity = cduProducingCapacity;
 	}
 	public int getId() {
 		return id;

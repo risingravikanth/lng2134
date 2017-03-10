@@ -814,7 +814,7 @@ public class ReadExcelFile {
 	}
 	private List<Refinery> populateRefineryData(Sheet sheet,Tab tab)
 	{
-		logger.info("Class - ReadExcelFile - populateNaturalGasData()");
+		logger.info("Class - ReadExcelFile - populateRefineryData()");
 		int columnNo=0;
 		List<Refinery> refineryList=new ArrayList<Refinery>();
 		int rowCount=sheet.getLastRowNum();
@@ -939,12 +939,16 @@ public class ReadExcelFile {
 				columnNo=81;r.setKerojet(null==row.getCell(81)|| null==df.formatCellValue(row.getCell(81))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(81)))?0:Double.valueOf(df.formatCellValue(row.getCell(81))));
 				columnNo=82;r.setBenzeneSaturationUnit(null==row.getCell(82)||null==df.formatCellValue(row.getCell(82))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(82)))?BLANK:df.formatCellValue(row.getCell(82)));
 				columnNo=83;r.setProductsSources(null==row.getCell(83)||null==df.formatCellValue(row.getCell(83))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(83)))?BLANK:df.formatCellValue(row.getCell(83)));
-				
+				columnNo=84;r.setLicensors(null==row.getCell(84)||null==df.formatCellValue(row.getCell(84))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(84)))?BLANK:df.formatCellValue(row.getCell(84)));
+				columnNo=85;r.setMaintananceStartDate(null==row.getCell(85)||null==df.formatCellValue(row.getCell(85))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(85)))?0:Integer.parseInt(df.formatCellValue(row.getCell(85))));
+				columnNo=86;r.setMaintananceEndDate(null==row.getCell(86)||null==df.formatCellValue(row.getCell(86))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(86)))?0:Integer.parseInt(df.formatCellValue(row.getCell(86))));
+				columnNo=87;r.setMaintananceNote(null==row.getCell(87)||null==df.formatCellValue(row.getCell(87))||(BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(87)))?BLANK:df.formatCellValue(row.getCell(87)));
+				columnNo=88;r.setCduProducingCapacity(null==row.getCell(88)|| null==df.formatCellValue(row.getCell(88))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(88)))?0:Double.valueOf(df.formatCellValue(row.getCell(88))));
 				refineryList.add(r);
 			}
 			catch(Exception e)
 			{
-				logger.error("Exception in ReadExcelFile - populateNaturalGasData():"+e);
+				logger.error("Exception in ReadExcelFile - populateRefineryData():"+e);
 				totalRecords++;
 				String columnName=getHeaderValues(sheet, columnNo);
 				recordsList.append((row.getRowNum()+1)+COMMA);
