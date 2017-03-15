@@ -33,23 +33,32 @@ public class UserManagementServiceImpl implements UserManagementService {
 			JSONObject jsonUserObject=getJsonObject(userData);
 			User user=new User();//userDao.getUser((String)jsonUserObject.get(UserConstants.EMAIL));
 			String email=(String)jsonUserObject.get(UserConstants.EMAIL);
-			String userName=email.substring(0, email.indexOf("@"));
-			user.setUserName(userName);
-			user.setFirstName((String)jsonUserObject.get(UserConstants.FIRST_NAME));
-			user.setLastName((String)jsonUserObject.get(UserConstants.LAST_NAME));
-			user.setMobile((String)jsonUserObject.get(UserConstants.MOBILE));
-			user.setEmail(email);
-			user.setAddress((String)jsonUserObject.get(UserConstants.ADDRESS));
-			user.setAdmin((String)jsonUserObject.get(UserConstants.ADMIN));
-			user.setRole((String)jsonUserObject.get(UserConstants.ROLE));
-	//		user.setPassword((String)jsonUserObject.get(UserConstants.PASSWORD));
-			user.setUserImage(userName);
-			user.setPasswordReset(ApplicationConstants.NO);
-			user.setPassword((String)properties.get("DEFAULT_PASSWORD"));
-		
-		
-			userDao.saveUser(user);
-			response=ApplicationConstants.SUCCESS;
+			User userExists=userDao.getUser(email);
+			if(null!=userExists)
+			{
+				response=ApplicationConstants.USER_EXISTS;
+			}
+			else
+			{
+				String userName=email.substring(0, email.indexOf("@"));
+				user.setUserName(userName);
+				user.setFirstName((String)jsonUserObject.get(UserConstants.FIRST_NAME));
+				user.setLastName((String)jsonUserObject.get(UserConstants.LAST_NAME));
+				user.setMobile((String)jsonUserObject.get(UserConstants.MOBILE));
+				user.setEmail(email);
+				user.setAddress((String)jsonUserObject.get(UserConstants.ADDRESS));
+				user.setAdmin((String)jsonUserObject.get(UserConstants.ADMIN));
+				user.setRole((String)jsonUserObject.get(UserConstants.ROLE));
+		//		user.setPassword((String)jsonUserObject.get(UserConstants.PASSWORD));
+				user.setUserImage(userName);
+				user.setPasswordReset(ApplicationConstants.NO);
+				user.setPassword((String)properties.get("DEFAULT_PASSWORD"));
+			
+			
+				userDao.saveUser(user);
+				response=ApplicationConstants.SUCCESS;
+			}
+			
 		}
 		catch(Exception e)
 		{

@@ -11,5 +11,6 @@ public interface JspPageConstants {
 	public static final String USER_AUDIT_JSP="jsp/userAudit.jsp";
 	public static final String USER_MNGMT_JSP="jsp/userManagement.jsp";
 	public static final String TERMINAL_MNGMT_JSP="jsp/terminalManagement.jsp";
+	public static final String REPORTS_JSP="jsp/reports.jsp";
 	
 }

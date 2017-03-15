@@ -19,6 +19,7 @@ import com.lnganalysis.entities.source.LngSource;
 import com.lnganalysis.entities.source.PipeLineSource;
 import com.lnganalysis.entities.source.RefinerySource;
 import com.lnganalysis.entities.source.Region;
+import com.lnganalysis.entities.source.Report;
 import com.lnganalysis.entities.source.SingleSource;
 import com.lnganalysis.entities.source.Status;
 import com.lnganalysis.entities.source.StorageSource;
@@ -318,6 +319,29 @@ public class JsonResponse {
 			array.add(jsonObj);
 		}
 		response=array.toString();
+		return response;
+	}
+	public static String createReportsListResponse(List<Report> reportsList)
+	{
+		logger.info("Class - JsonResponse - createReportsListResponse()");
+		String response=null;
+		if(reportsList.size()>0)
+		{
+			JSONArray array=new JSONArray();
+			for(Report report:reportsList)
+			{
+				 JSONObject jsonObj=new JSONObject();
+				 							 
+//				  
+			      jsonObj.put("title",report.getReportTitle());
+			      jsonObj.put("sector",report.getSector());
+			      jsonObj.put("country",report.getCountry());
+			      jsonObj.put("region",report.getRegion());
+			   			      
+			      array.add(jsonObj);
+			}
+			response=array.toString();
+		}	
 		return response;
 	}
 }

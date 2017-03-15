@@ -208,12 +208,12 @@ function dataResult(dataListResponse)
 			 }
 			 else
 			 {
-					var usersArray=JSON.parse(dataListResponse);						
+					var dataArray=JSON.parse(dataListResponse);						
 						var htmlContent="";	
 						var count=1;
-						for(var i=0;i<usersArray.length;i++)
+						for(var i=0;i<dataArray.length;i++)
 							{
-								var val=usersArray[i];					
+								var val=dataArray[i];					
 								
 					//			alert(val.name+": "+ val.records+":"+ val.totalrecords);
 								htmlContent=htmlContent+"<tr id='"+i+"'><th scope=\"row\">&nbsp;</th><td id='tdsourceName"+i+"'><div class='col-md-6'>"+val.name+"</div></td>"+

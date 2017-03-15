@@ -71,6 +71,11 @@
 		<servlet-name>terminalData</servlet-name>
 		<servlet-class>com.lnganalysis.actions.TerminalManagementServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>reportsServlet</servlet-name>
+		<servlet-class>com.lnganalysis.actions.ReportsManagementServlet</servlet-class>
+	</servlet>
+	
 	
 		
 <!-- 	<servlet>
@@ -137,6 +142,10 @@
 	<servlet-mapping>
 		<servlet-name>terminalData</servlet-name>
 		<url-pattern>terminals</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>reportsServlet</servlet-name>
+		<url-pattern>reports</url-pattern>
 	</servlet-mapping>
 	<!-- <session-config>
 		<session-timeout>1</session-timeout>

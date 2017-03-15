@@ -55,7 +55,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<div class="form-title">
 										<h4><button id="addUser" type="button" class="btn btn-default">Add User</button></h4>
 									</div>
-									<div class="col-sm-offset-3">
+									<div class="col-sm-offset-4">
 										<div class="form-body" data-example-id="simple-form-inline">
 											<form class="form-inline" id="userForm"  method="post"> 																		
 														 

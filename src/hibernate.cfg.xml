@@ -46,6 +46,6 @@
 		<mapping resource="com/lnganalysis/entities/source/StorageSource.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/source/LngSource.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/source/PipeLineSource.hbm.xml"></mapping>
-		
+		<mapping resource="com/lnganalysis/entities/source/Report.hbm.xml"></mapping>
 	</session-factory>
 </hibernate-configuration>          

@@ -73,7 +73,7 @@ $(document).on("click","button",function(){
 //	 $("#usernotexists").hide();
     if($(this).text()==edit)
     {
-    
+    	//$("#addUserDelete"+rowId).hide(); //hide the delete button
     	var action=$(this).text();
 //    	 var trid = $(this).closest('tr').attr('id');
 //         alert('got tr id:'+trid);
@@ -278,10 +278,8 @@ function createJsonRequest(action,rowId,event)
 	if(!requestUrl=='')
 	{
 		 $.ajax({url: requestUrl, 
-				type:"post",
-				
-				data:{userData:sendData},			
-				
+				type:"post",				
+				data:{userData:sendData},							
 				success:function(responseData)
 				{
 					recordUpdatedOrSaved(responseData,rowId,event,action);
@@ -307,6 +305,7 @@ function recordUpdatedOrSaved(responseData,rowId,event,action)
 			{
 				$("#displayMsg").html(RECORD_SAVED);
 				$("#displayMsg").show();
+				$("#addUserDelete"+rowId).hide();
 			}	
 				
 	//			updateElementVal(userName,rowId);
@@ -341,6 +340,11 @@ function recordUpdatedOrSaved(responseData,rowId,event,action)
 		else if(responseData==SESSION_EXPIRED)
 		{
 				$("#displayMsg").html(SESSION_EXPIRED_MSG);
+				$("#displayMsg").show();
+		}
+		else if(responseData==USER_EXISTS)
+		{
+				$("#displayMsg").html(USER_EXISTS_MSG);
 				$("#displayMsg").show();
 		}
 		
@@ -478,12 +482,13 @@ function addUser()
 	
 	addUserflag=true;
 	var htmlContent=htmlString+"<tr id='"+addUserCount+"'><th scope=\"row\">&nbsp;</th><td id='email"+addUserCount+"'>"+emailElement+"</td><td id='firstName"+addUserCount+"'>"+firstNameElement+"</td><td id='lastName"+addUserCount+"'>"+lastNameElement+"</td><td id='mobile"+addUserCount+"'>"+mobileElement+"</td><td id='address"+addUserCount+"'>"+addressElement+"</td><td id='admin"+addUserCount+"'>"+adminElement+"</td><td id='role"+addUserCount+"'>"+roleElement+"</td>"+//<td id='image"+addUserCount+"'>"+imageElement+"</td>"+
-							"<td style='border-right:none' id='saveButton'><button id='addUserSaveButton"+addUserCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Save</button>"+
-							"<td style='border-left:none'><button  id='addUserDelete"+addUserCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Delete</button>";
-									"</td></tr>";
+							"<td style='border-right:none' id='saveButton'><button id='addUserSaveButton"+addUserCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Save</button></td>"+
+							"<td style='border-left:none'><button  id='addUserDelete"+addUserCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Delete</button></td></tr>";
+//									"</td></tr>";
 							
 	
 	$("#userTableBody").html(htmlContent);
+	$("#addUserDelete"+addUserCount).hide();
 	if(addUserCount>0)
 	{
 //		$("#edituserName"+(addUserCount-1)).attr('value',enteredUserName);

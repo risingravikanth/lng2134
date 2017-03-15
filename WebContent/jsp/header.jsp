@@ -50,6 +50,9 @@
 									<li>
 										<a href="${pageContext.request.contextPath}/view?page=useraudit">User Tracking</a>
 									</li>
+									<li>
+										<a href="${pageContext.request.contextPath}/view?page=reports">Reports</a>
+									</li>
 								</ul>
 								<!-- /nav-second-level -->
 							</li>

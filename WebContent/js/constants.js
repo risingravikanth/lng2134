@@ -12,6 +12,8 @@ var RECORD_UPDATED="Record Updated Successfully";
 var RECORD_NOT_UPDATED="Record Not Updated";
 var SOURCE_NAME_MANDATORY="Source Name is Mandatory";
 var NO_RECORDS="No Records to Display";
+var USER_EXISTS="userexists";
+var USER_EXISTS_MSG="User Already Exists";
 var USER_NOT_EXISTS="usernotexists";
 var USER_NOT_EXISTS_MSG="User doesn't Exists";
 var EMAIL_REQUIRED="Email is Required";
@@ -41,3 +43,5 @@ var INVALID_DATA_SHEET_MSG="InValid Data Sheet has been Uploaded";
 var DUPLICATE_ENTRY="duplicate";
 var DUPLICATE_ENTRY_MSG="Please Enter Correct Record Number In Uploaded Excel";
 var RECORD_ALREADY_EXISTS="Record Already Exists";
+
+var REPORT_NAME_MANDATORY="Report Title is Mandatory";

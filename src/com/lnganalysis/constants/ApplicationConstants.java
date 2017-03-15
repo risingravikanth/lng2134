@@ -22,6 +22,7 @@ public interface ApplicationConstants {
 	public static final String UPDATED="updated";
 	
 	public static final String USER_NOT_EXISTS="usernotexists";
+	public static final String USER_EXISTS="userexists";
 	
 	public static final String LOGIN_RES="loginresponse";
 	public static final String CHNG_PWD_RESPONSE="changepwdresponse";

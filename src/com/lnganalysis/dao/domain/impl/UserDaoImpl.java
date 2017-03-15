@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -49,9 +50,12 @@ public class UserDaoImpl implements UserDao{
 			logger.info("Class - UserDaoImpl - getUser()");
 			session=sessionFactory.openSession();
 			Transaction tx=session.beginTransaction();
-			Criteria criteria=session.createCriteria(User.class);
-			criteria.add(Restrictions.eq("email", email));
-			user=(User)criteria.uniqueResult();					
+			Query query=session.createQuery("from User where email=:email");
+			query.setParameter("email",email);
+			user=(User)query.uniqueResult();
+//			Criteria criteria=session.createCriteria(User.class);
+//			criteria.add(Restrictions.eq("email", email));
+//			user=(User)criteria.uniqueResult();					
 			tx.commit();
 		}
 		catch(Exception e)
@@ -95,8 +99,8 @@ public class UserDaoImpl implements UserDao{
 			logger.info("Class - UserDaoImpl - getUsers()");
 			session=sessionFactory.openSession();
 			Transaction tx=session.beginTransaction();
-			Criteria criteria=session.createCriteria(User.class);					
-			usersList=criteria.list();		
+			Query query=session.createQuery("from User");
+			usersList=(List<User>)query.list();	
 			tx.commit();
 		}
 		catch(Exception e)
@@ -145,9 +149,11 @@ public class UserDaoImpl implements UserDao{
 			logger.info("Class - UserDaoImpl - getAdminUsers()");
 			session=sessionFactory.openSession();
 			Transaction tx=session.beginTransaction();
-			Criteria criteria=session.createCriteria(User.class);
-			criteria.add(Restrictions.eq("admin", "Y"));
-			usersList=criteria.list();				
+			Query query=session.createQuery("from User where admin=:value");
+//			Criteria criteria=session.createCriteria(User.class);
+//			criteria.add(Restrictions.eq("admin", "Y"));
+			query.setParameter("value","Y");
+			usersList=(List<User>)query.list();				
 			tx.commit();
 		}
 		catch(Exception e)
@@ -175,9 +181,12 @@ public class UserDaoImpl implements UserDao{
 			logger.info("Class - UserDaoImpl - getNonAdminUsers()");
 			session=sessionFactory.openSession();
 			Transaction tx=session.beginTransaction();
-			Criteria criteria=session.createCriteria(User.class);
-			criteria.add(Restrictions.eq("admin", "N"));
-			usersList=criteria.list();				
+			Query query=session.createQuery("from User where admin=:value");
+//			Criteria criteria=session.createCriteria(User.class);
+//			criteria.add(Restrictions.eq("admin", "N"));
+			query.setParameter("value","N");
+			usersList=(List<User>)query.list();	
+			
 			tx.commit();
 		}
 		catch(Exception e)
