@@ -175,7 +175,7 @@ function addSource()
 		enteredSourceName=$("#sourceName"+(addSourceCount-1)).val();		
 	}	
 		
-	var sourceNameElement="<input class='col-md-6' id='sourceName"+addSourceCount+"' type='text' name='sourceName"+addSourceCount+"'>";// value='"+$('#edituserName'+addUserCount).val()+"'>";
+	var sourceNameElement="<input style='width:500px' id='sourceName"+addSourceCount+"' type='text' name='sourceName"+addSourceCount+"'>";// value='"+$('#edituserName'+addUserCount).val()+"'>";
 	
 	addSourceflag=true;
 	var htmlContent=htmlString+"<tr id='"+addSourceCount+"'><th scope=\"row\">&nbsp;</th><td id='tdsourceName"+addSourceCount+"'>"+sourceNameElement+"</td>"+

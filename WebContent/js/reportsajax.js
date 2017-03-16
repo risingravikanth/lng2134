@@ -202,7 +202,7 @@ function addReport()
 		
 	}	
 		
-	var reportTitleElement="<input id='reportTitle"+addReportCount+"' type='text' name='reportTitle"+addReportCount+"'>";
+	var reportTitleElement="<input style='width:350px' id='reportTitle"+addReportCount+"' type='text' name='reportTitle"+addReportCount+"'>";
 	var sectorElement="<input id='sector"+addReportCount+"' type='text' name='sector"+addReportCount+"'>";
 	var regionElement="<input id='region"+addReportCount+"'type='text' name='region"+addReportCount+"'>";
 	var countryElement="<input id='country"+addReportCount+"' type='text' name='country"+addReportCount+"'>";	
