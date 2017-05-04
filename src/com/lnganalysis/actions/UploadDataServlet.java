@@ -1,6 +1,7 @@
 package com.lnganalysis.actions;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,14 +52,10 @@ public class UploadDataServlet extends HttpServlet {
 			   else
 			   {
 				   					 
-				   isMultipart = ServletFileUpload.isMultipartContent(request); 	
-				      
-				   ServletRequestContext src=new ServletRequestContext(request);
-				      
-				      
-				      if( !isMultipart ){
-				    	 out.write("isMultipart");
-
+				   isMultipart = ServletFileUpload.isMultipartContent(request); 					      
+				   ServletRequestContext src=new ServletRequestContext(request);				      				      
+				   if( !isMultipart ){
+					   out.write("isMultipart");
 				      }
 				      DiskFileItemFactory factory = new DiskFileItemFactory();
 				      // maximum size that will be stored in memory
@@ -70,7 +67,7 @@ public class UploadDataServlet extends HttpServlet {
 				      ServletFileUpload upload = new ServletFileUpload(factory);
 				      // maximum file size to be uploaded.
 				      upload.setSizeMax( maxFileSize );
-
+				      InputStream is=null;
 				      try{ 
 				      // Parse the request to get file items.
 				      List fileItems = upload.parseRequest(request);
@@ -84,13 +81,12 @@ public class UploadDataServlet extends HttpServlet {
 				      
 				      while ( i.hasNext () ) 
 				      {
-				         FileItem fi = (FileItem)i.next();
-				         
-				        
+				         FileItem fi = (FileItem)i.next();				         				       
 				         if ( !fi.isFormField () )	
 				         {
+				        	 is=fi.getInputStream();
 				        	 FileUploadService  fileUploadService=new FileUploadServiceImpl();
-				        	 uploadResponse=fileUploadService.uploadFileService(fi.getInputStream(),user,action);
+				        	 uploadResponse=fileUploadService.uploadFileService(is,user,action);
 				        	 if(uploadResponse!=null && uploadResponse.equalsIgnoreCase(ApplicationConstants.SUCCESS))
 				        		 fileUploadService.writeFile(fi,filePath);
 				        	 			        			        		           		            		         
@@ -103,14 +99,22 @@ public class UploadDataServlet extends HttpServlet {
 				        	
 				         }
 				      }		      		       		      		     		      		     
-				      response.setContentType("application/json");
-//				      
+				      response.setContentType("application/json");				      
 				      out.write(uploadResponse);//array.toString()
 				      
 				   }catch(Exception ex) {
 					  logger.error("Exception in UploadDataServlet:"+ex);
 					   out.write(ApplicationConstants.APP_EXCEPTION);
-				       
+				      
+				   }
+				   finally
+				   {
+					   try {
+						is.close();
+					} catch (Exception e) {
+						// TODO: handle exception
+						logger.error("Exception in finally block UploadDataServlet:"+e);
+					}
 				   }
 			   }
 			 

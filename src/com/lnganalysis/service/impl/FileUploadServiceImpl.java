@@ -57,10 +57,10 @@ public class FileUploadServiceImpl implements FileUploadService {
 		// TODO Auto-generated method stub
 //		  Get the uploaded file parameters
 //	    String fieldName = fi.getFieldName();
-		
+		InputStream is=null;
 		try
 		{
-			InputStream is=UserManagementServiceImpl.class.getClassLoader().getResourceAsStream(ApplicationConstants.APP_PROPERTIES);
+			is=UserManagementServiceImpl.class.getClassLoader().getResourceAsStream(ApplicationConstants.APP_PROPERTIES);
 		  	 Properties properties=new Properties();
 		  	 properties.load(is);
 	        SimpleDateFormat sdf = new SimpleDateFormat(properties.getProperty("EXCEL_FILE_FORMAT_DATE_TIME"));//hh:mm:ss");
@@ -84,6 +84,17 @@ public class FileUploadServiceImpl implements FileUploadService {
 		catch(Exception e)
 		{
 			logger.error("Exception in FileUploadServiceImpl - writeFile():"+e);
+		}
+		finally
+		{
+			try
+			{
+				is.close();
+			}
+			catch(Exception fis)
+			{
+				logger.error("Exception in finally block FileUploadServiceImpl - writeFile():"+fis);
+			}
 		}
 		
 	}

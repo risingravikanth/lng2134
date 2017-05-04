@@ -86,7 +86,10 @@ public class ReadUploadedFile {
 		Map<String,List<Tab>> processedSheet=null;		
 		ReadExcelFile readExcelFile=null;
 		ExcelDataValidation excelDataValidaton=null;
-		Workbook uploadedFile= WorkbookFactory.create(fis);
+		Workbook uploadedFile=null; 
+		try
+		{
+			uploadedFile=WorkbookFactory.create(fis);
 			//XSSFWorkbook uploadedFile=new XSSFWorkbook(fis); Comment this for time being
 //			int sheetCount=uploadedFile.getNumberOfSheets();
 		  	readExcelFile=new ReadExcelFile();
@@ -126,6 +129,11 @@ public class ReadUploadedFile {
 					}
 				}
 			}
+		}
+		finally
+		{
+			uploadedFile.close();
+		}
 												
 		return processedSheet;
 		
