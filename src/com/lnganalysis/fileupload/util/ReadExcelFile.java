@@ -1007,22 +1007,23 @@ public class ReadExcelFile {
 					
 					columnNo=6;e.setStartDate(null==row.getCell(6) || null==df.formatCellValue(row.getCell(6))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?null:new Date(df.formatCellValue(row.getCell(6))));
 					columnNo=7;e.setOperator(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?BLANK:df.formatCellValue(row.getCell(7)));
-					columnNo=8;e.setEquityParterns(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?BLANK:df.formatCellValue(row.getCell(8)));
-					columnNo=9;e.setSourceEquity(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?BLANK:df.formatCellValue(row.getCell(9)));
-					columnNo=10;e.setArea(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?0:Double.valueOf(df.formatCellValue(row.getCell(10))));
-					columnNo=11;e.setLicenseEnddate(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?null:new Date(df.formatCellValue(row.getCell(11))));
+					columnNo=8;e.setEquityPartners(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?BLANK:df.formatCellValue(row.getCell(8)));
+					columnNo=9;e.setEquityStakes(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?0:Double.valueOf(df.formatCellValue(row.getCell(9))));
+					columnNo=10;e.setSourceEquity(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?BLANK:df.formatCellValue(row.getCell(10)));
+					columnNo=11;e.setArea(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?0:Double.valueOf(df.formatCellValue(row.getCell(11))));
+					columnNo=12;e.setLicenseEnddate(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?null:new Date(df.formatCellValue(row.getCell(12))));
 					
 		//			System.out.println("Exploration second");
 					
-					columnNo=12;e.setWellsDrilled(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?0:Double.valueOf(df.formatCellValue(row.getCell(12))));
-					columnNo=13;e.setTwoDSeismicCompleted(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?0:Double.valueOf(df.formatCellValue(row.getCell(13))));
-					columnNo=14;e.setThreeDSeismic(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Double.valueOf(df.formatCellValue(row.getCell(14))));
-					columnNo=15;e.setMoreInfo(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?BLANK:df.formatCellValue(row.getCell(15)));
-					columnNo=16;e.setNotes(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?BLANK:df.formatCellValue(row.getCell(16)));
-					columnNo=17;e.setSource(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
+					columnNo=13;e.setWellsDrilled(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?0:Double.valueOf(df.formatCellValue(row.getCell(13))));
+					columnNo=14;e.setTwoDSeismicCompleted(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Double.valueOf(df.formatCellValue(row.getCell(14))));
+					columnNo=15;e.setThreeDSeismic(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?0:Double.valueOf(df.formatCellValue(row.getCell(15))));
+					columnNo=16;e.setMoreInfo(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?BLANK:df.formatCellValue(row.getCell(16)));
+					columnNo=17;e.setNotes(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
+					columnNo=18;e.setSource(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
 		//			System.out.println(row.getCell(18));
 		//			System.out.println(row.getCell(18).getStringCellValue());
-					columnNo=18;e.setLicenseNo(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
+					columnNo=19;e.setLicenseNo(null==row.getCell(19)|| null==df.formatCellValue(row.getCell(19)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(19)))?BLANK:df.formatCellValue(row.getCell(19)));
 //					columnNo=19;e.setRecordId(null==row.getCell(19)?0:Double.valueOf(row.getCell(19).getNumericCellValue()).intValue());
 					
 					explorationDataList.add(e);

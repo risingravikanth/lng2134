@@ -830,11 +830,11 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Exploration exploration=(Exploration)domainObject;
-			if(null!=exploration.getEquityParterns() && !("").equalsIgnoreCase(exploration.getEquityParterns()))
+			if(null!=exploration.getEquityPartners() && !("").equalsIgnoreCase(exploration.getEquityPartners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
-					if(exploration.getEquityParterns().equalsIgnoreCase(singleSourceList.get(i)))
+					if(exploration.getEquityPartners().equalsIgnoreCase(singleSourceList.get(i)))
 							flag=true;										
 				}
 				return flag;
