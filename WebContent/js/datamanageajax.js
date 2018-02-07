@@ -179,8 +179,8 @@ function addSource()
 	
 	addSourceflag=true;
 	var htmlContent=htmlString+"<tr id='"+addSourceCount+"'><th scope=\"row\">&nbsp;</th><td id='tdsourceName"+addSourceCount+"'>"+sourceNameElement+"</td>"+
-								"<td id='tdsaveButton"+addSourceCount+"'><div class='col-md-3'><button id='saveSourceButton"+addSourceCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Save</button></div>"+
-								"<div class='col-md-2'><button  id='adddeleteSourceButton"+addSourceCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Delete</button></div></td></tr>";														
+								"<td id='tdsaveButton"+addSourceCount+"'><div><button id='saveSourceButton"+addSourceCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Save</button>"+
+								"&nbsp;&nbsp;<button  id='adddeleteSourceButton"+addSourceCount+"' type=\"button\" class=\"btn btn-default btn-sm\">Delete</button></div></td></tr>";														
 	$("#sourceTableBody").html(htmlContent);
 	$("#adddeleteSourceButton"+addSourceCount).hide();
 	if(addSourceCount>0)

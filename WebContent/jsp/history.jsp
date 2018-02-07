@@ -97,7 +97,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<th>NATURALGAS</th>
 											<th>STORAGE</th>
 											<th>LNG</th>
-											<th>PIPELINE</th>																															
+											<th>PIPELINE</th>
+											<th>COMPANY_OILGAS</th>
+											<th>SMALLSCALELNG</th>																															
 										</tr>
 									</thead>
 									<tbody id="historyTableBody">

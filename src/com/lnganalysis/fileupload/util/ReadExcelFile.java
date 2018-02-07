@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -17,6 +16,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import com.lnganalysis.constants.LngData;
 import com.lnganalysis.dto.Tab;
+import com.lnganalysis.entities.domain.CompanyOilGas;
 import com.lnganalysis.entities.domain.Contracts;
 import com.lnganalysis.entities.domain.CrudeOil;
 import com.lnganalysis.entities.domain.Exploration;
@@ -24,6 +24,7 @@ import com.lnganalysis.entities.domain.Lng;
 import com.lnganalysis.entities.domain.NaturalGas;
 import com.lnganalysis.entities.domain.PipeLine;
 import com.lnganalysis.entities.domain.Refinery;
+import com.lnganalysis.entities.domain.SmallScaleLng;
 import com.lnganalysis.entities.domain.Storage;
 import com.lnganalysis.entities.domain.SupplyDemand;
 
@@ -121,9 +122,161 @@ public class ReadExcelFile {
 					tabsList.add(tab);
 				populatedData.put(sheet.getSheetName(), contractsList);
 			}
+			else if(sheet.getSheetName().equalsIgnoreCase(LngData.PRODUCTION_COMPANY_OILGAS.toString()))
+			{
+				Tab tab=new Tab();
+				List<CompanyOilGas> companyOilGasList=populateProductionCompanyOilGas(sheet,tab);
+				if(tab!=null && tab.getTotalRecords()>0)
+					tabsList.add(tab);
+				populatedData.put(sheet.getSheetName(), companyOilGasList);
+			}
+			else if(sheet.getSheetName().equalsIgnoreCase(LngData.SMALLSCALELNG.toString()))
+			{
+				Tab tab=new Tab();
+				List<SmallScaleLng> companyOilGasList=populateSmallScaleLng(sheet,tab);
+				if(tab!=null && tab.getTotalRecords()>0)
+					tabsList.add(tab);
+				populatedData.put(sheet.getSheetName(), companyOilGasList);
+			}
 		}
 		
 		return populatedData;
+	}
+	private List<SmallScaleLng> populateSmallScaleLng(Sheet sheet,Tab tab)
+	{
+
+		logger.info("Class - ReadExcelFile - populateSmallScaleLng()");
+		int columnNo=0;
+		List<SmallScaleLng> smallScaleLngList=new ArrayList<SmallScaleLng>();
+		int rowCount=sheet.getLastRowNum();
+		
+		int totalRecords=0;
+		StringBuffer recordsList=new StringBuffer();					
+		Set<String> columnNamesSet=new HashSet<String>();		
+//		DataFormatter df=new DataFormatter();
+		int linebreak=1;
+		for(int i=1;i<=rowCount;i++)
+		{
+			Row row=sheet.getRow(i);
+			SmallScaleLng smallScaleLng=new SmallScaleLng();
+			try
+			{
+				columnNo=0;smallScaleLng.setStatus(null==row.getCell(0)|| null==df.formatCellValue(row.getCell(0))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?BLANK:df.formatCellValue(row.getCell(0)));
+				columnNo=1;smallScaleLng.setType(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?BLANK:df.formatCellValue(row.getCell(1)));
+				columnNo=2;smallScaleLng.setCountry(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?BLANK:df.formatCellValue(row.getCell(2)));
+				columnNo=3;smallScaleLng.setRegion(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
+				columnNo=4;smallScaleLng.setLocation(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?BLANK:df.formatCellValue(row.getCell(4)));
+				columnNo=5;smallScaleLng.setTerminalName(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?BLANK:df.formatCellValue(row.getCell(5)));
+				columnNo=6;smallScaleLng.setStartDate(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?0:Integer.valueOf(df.formatCellValue(row.getCell(6))));
+				columnNo=7;smallScaleLng.setCompany(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?BLANK:df.formatCellValue(row.getCell(7)));
+				columnNo=8;smallScaleLng.setTechnologyProviderCompany(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?BLANK:df.formatCellValue(row.getCell(8)));
+				columnNo=9;smallScaleLng.setTechnology(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?BLANK:df.formatCellValue(row.getCell(9)));
+				columnNo=10;smallScaleLng.setLiquefactionCapacity(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?0:Double.valueOf(df.formatCellValue(row.getCell(10))));
+				columnNo=11;smallScaleLng.setLiquefactionCapcityUnit(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?BLANK:df.formatCellValue(row.getCell(11)));
+				columnNo=12;smallScaleLng.setRegasificationCapacity(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?0:Double.valueOf(df.formatCellValue(row.getCell(12))));
+				columnNo=13;smallScaleLng.setRegasificationCapcityUnit(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?BLANK:df.formatCellValue(row.getCell(13)));
+				columnNo=14;smallScaleLng.setBunkeringCapacity(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Double.valueOf(df.formatCellValue(row.getCell(14))));
+				columnNo=15;smallScaleLng.setBunkeringCapacityUnit(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?BLANK:df.formatCellValue(row.getCell(15)));
+				columnNo=16;smallScaleLng.setSource(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?BLANK:df.formatCellValue(row.getCell(16)));
+				columnNo=17;smallScaleLng.setStorageCapacity(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?0:Double.valueOf(df.formatCellValue(row.getCell(17))));
+				columnNo=18;smallScaleLng.setEpc(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
+				columnNo=19;smallScaleLng.setCapex(null==row.getCell(19)|| null==df.formatCellValue(row.getCell(19))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(19)))?0:Double.valueOf(df.formatCellValue(row.getCell(19))));
+				columnNo=20;smallScaleLng.setDistributionType(null==row.getCell(20)|| null==df.formatCellValue(row.getCell(20))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(20)))?BLANK:df.formatCellValue(row.getCell(20)));
+				columnNo=21;smallScaleLng.setOtherDetails(null==row.getCell(21)|| null==df.formatCellValue(row.getCell(21))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(21)))?BLANK:df.formatCellValue(row.getCell(21)));
+				columnNo=22;smallScaleLng.setSources(null==row.getCell(22)|| null==df.formatCellValue(row.getCell(22))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(22)))?BLANK:df.formatCellValue(row.getCell(22)));
+				columnNo=23;smallScaleLng.setTerminalOtherName(null==row.getCell(23)|| null==df.formatCellValue(row.getCell(23))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(23)))?BLANK:df.formatCellValue(row.getCell(23)));
+				columnNo=24;smallScaleLng.setContactOrEmailId(null==row.getCell(24)|| null==df.formatCellValue(row.getCell(24))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(24)))?BLANK:df.formatCellValue(row.getCell(24)));
+								
+				smallScaleLngList.add(smallScaleLng);
+			}
+			catch(Exception e)
+			{	
+				logger.info("Class - ReadExcelFile - populateSmallScaleLng():"+e);
+				totalRecords++;
+				String columnName=getHeaderValues(sheet, columnNo);
+				recordsList.append((row.getRowNum()+1)+COMMA);
+				if(totalRecords==(12*linebreak))
+				{	
+					recordsList.append(SPACE);// Adding space for rendering in front end;
+					linebreak++;
+				}	
+				columnNamesSet.add(columnName);				
+				
+			}
+		}
+		return smallScaleLngList;
+	
+	}
+	private List<CompanyOilGas> populateProductionCompanyOilGas(Sheet sheet,Tab tab)
+	{
+		logger.info("Class - ReadExcelFile - populateProductionCompanyOilGas()");
+		int columnNo=0;
+		List<CompanyOilGas> companyOilGasList=new ArrayList<CompanyOilGas>();
+		int rowCount=sheet.getLastRowNum();
+		
+		int totalRecords=0;
+		StringBuffer recordsList=new StringBuffer();					
+		Set<String> columnNamesSet=new HashSet<String>();		
+//		DataFormatter df=new DataFormatter();
+		int linebreak=1;
+		for(int i=1;i<=rowCount;i++)
+		{
+			Row row=sheet.getRow(i);
+			CompanyOilGas companyOilGas=new CompanyOilGas();
+			try
+			{
+				columnNo=0;companyOilGas.setName(null==row.getCell(0)|| null==df.formatCellValue(row.getCell(0))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?BLANK:df.formatCellValue(row.getCell(0)));
+				columnNo=1;companyOilGas.setRegion(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?BLANK:df.formatCellValue(row.getCell(1)));
+				columnNo=2;companyOilGas.setCountry(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?BLANK:df.formatCellValue(row.getCell(2)));
+				columnNo=3;companyOilGas.setType(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
+				
+				columnNo=4;companyOilGas.setYear2005(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?0:Double.valueOf(df.formatCellValue(row.getCell(4))));
+				columnNo=5;companyOilGas.setYear2006(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?0:Double.valueOf(df.formatCellValue(row.getCell(5))));
+				columnNo=6;companyOilGas.setYear2007(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?0:Double.valueOf(df.formatCellValue(row.getCell(6))));
+				columnNo=7;companyOilGas.setYear2008(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?0:Double.valueOf(df.formatCellValue(row.getCell(7))));
+				columnNo=8;companyOilGas.setYear2009(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?0:Double.valueOf(df.formatCellValue(row.getCell(8))));
+				columnNo=9;companyOilGas.setYear2010(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?0:Double.valueOf(df.formatCellValue(row.getCell(9))));
+				columnNo=10;companyOilGas.setYear2011(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?0:Double.valueOf(df.formatCellValue(row.getCell(10))));
+				columnNo=11;companyOilGas.setYear2012(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?0:Double.valueOf(df.formatCellValue(row.getCell(11))));
+				columnNo=12;companyOilGas.setYear2013(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?0:Double.valueOf(df.formatCellValue(row.getCell(12))));
+				columnNo=13;companyOilGas.setYear2014(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?0:Double.valueOf(df.formatCellValue(row.getCell(13))));
+				columnNo=14;companyOilGas.setYear2015(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?0:Double.valueOf(df.formatCellValue(row.getCell(14))));
+				columnNo=15;companyOilGas.setYear2016(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?0:Double.valueOf(df.formatCellValue(row.getCell(15))));
+				columnNo=16;companyOilGas.setYear2017(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?0:Double.valueOf(df.formatCellValue(row.getCell(16))));
+				
+				columnNo=17;companyOilGas.setNotes(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
+				
+				columnNo=18;companyOilGas.setSource2005(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
+				columnNo=19;companyOilGas.setSource2006(null==row.getCell(19)|| null==df.formatCellValue(row.getCell(19))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(19)))?BLANK:df.formatCellValue(row.getCell(19)));
+				columnNo=20;companyOilGas.setSource2007(null==row.getCell(20)|| null==df.formatCellValue(row.getCell(20))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(20)))?BLANK:df.formatCellValue(row.getCell(20)));
+				columnNo=21;companyOilGas.setSource2008(null==row.getCell(21)|| null==df.formatCellValue(row.getCell(21))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(21)))?BLANK:df.formatCellValue(row.getCell(21)));
+				columnNo=22;companyOilGas.setSource2009(null==row.getCell(22)|| null==df.formatCellValue(row.getCell(22))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(22)))?BLANK:df.formatCellValue(row.getCell(22)));
+				columnNo=23;companyOilGas.setSource2010(null==row.getCell(23)|| null==df.formatCellValue(row.getCell(23))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(23)))?BLANK:df.formatCellValue(row.getCell(23)));
+				columnNo=24;companyOilGas.setSource2011(null==row.getCell(24)|| null==df.formatCellValue(row.getCell(24))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(24)))?BLANK:df.formatCellValue(row.getCell(24)));
+				columnNo=25;companyOilGas.setSource2012(null==row.getCell(25)|| null==df.formatCellValue(row.getCell(25))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(25)))?BLANK:df.formatCellValue(row.getCell(25)));
+				columnNo=26;companyOilGas.setSource2013(null==row.getCell(26)|| null==df.formatCellValue(row.getCell(26))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(26)))?BLANK:df.formatCellValue(row.getCell(26)));
+				columnNo=27;companyOilGas.setSource2014(null==row.getCell(27)|| null==df.formatCellValue(row.getCell(27))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(27)))?BLANK:df.formatCellValue(row.getCell(27)));
+				columnNo=28;companyOilGas.setSource2015(null==row.getCell(28)|| null==df.formatCellValue(row.getCell(28))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(28)))?BLANK:df.formatCellValue(row.getCell(28)));
+				columnNo=29;companyOilGas.setSource2016(null==row.getCell(29)|| null==df.formatCellValue(row.getCell(29))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(29)))?BLANK:df.formatCellValue(row.getCell(29)));
+				columnNo=30;companyOilGas.setSource2017(null==row.getCell(30)|| null==df.formatCellValue(row.getCell(30))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(30)))?BLANK:df.formatCellValue(row.getCell(30)));
+				companyOilGasList.add(companyOilGas);
+			}
+			catch(Exception e)
+			{	
+				logger.info("Class - ReadExcelFile - populateProductionCompanyOilGas():"+e);
+				totalRecords++;
+				String columnName=getHeaderValues(sheet, columnNo);
+				recordsList.append((row.getRowNum()+1)+COMMA);
+				if(totalRecords==(12*linebreak))
+				{	
+					recordsList.append(SPACE);// Adding space for rendering in front end;
+					linebreak++;
+				}	
+				columnNamesSet.add(columnName);				
+				
+			}
+		}
+		return companyOilGasList;
 	}
 	private List<Contracts> populateContractsData(Sheet sheet,Tab tab)
 	{
@@ -151,7 +304,7 @@ public class ReadExcelFile {
 				columnNo=5;contracts.setImportTerminal(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?BLANK:df.formatCellValue(row.getCell(5)));
 				columnNo=6;contracts.setImportCountry(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?BLANK:df.formatCellValue(row.getCell(6)));
 				columnNo=7;contracts.setImportCompany(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?BLANK:df.formatCellValue(row.getCell(7)));
-				columnNo=8;contracts.setContractedQuantity(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?0:Float.valueOf(df.formatCellValue(row.getCell(8))));
+				columnNo=8;contracts.setContractedQuantity(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?0:Double.valueOf(df.formatCellValue(row.getCell(8))));
 				columnNo=9;contracts.setContractAgreementDate(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?BLANK:df.formatCellValue(row.getCell(9)));
 				columnNo=10;contracts.setContractStartFrom(null==row.getCell(10) || null==df.formatCellValue(row.getCell(10)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?0:Integer.parseInt(df.formatCellValue(row.getCell(10))));
 				columnNo=11;contracts.setContractEndsIn(null==row.getCell(11) || null==df.formatCellValue(row.getCell(11)) || (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?0:Integer.parseInt(df.formatCellValue(row.getCell(11))));
@@ -521,38 +674,39 @@ public class ReadExcelFile {
 			PipeLine p=new PipeLine();
 			try
 			{
-				columnNo=0;p.setPipeline(null==row.getCell(0) || null==df.formatCellValue(row.getCell(0))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?BLANK:df.formatCellValue(row.getCell(0)));
+				columnNo=0;p.setPipeline(null==row.getCell(0) || null==df.formatCellValue(row.getCell(0))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(0)))?BLANK:df.formatCellValue(row.getCell(0)));				
 				columnNo=1;p.setSubPipelines(null==row.getCell(1)|| null==df.formatCellValue(row.getCell(1))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(1)))?BLANK:df.formatCellValue(row.getCell(1)));
-				columnNo=2;p.setStatus(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?BLANK:df.formatCellValue(row.getCell(2)));
-				columnNo=3;p.setCommodity(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
-				columnNo=4;p.setStartPoint(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?BLANK:df.formatCellValue(row.getCell(4)));
-				columnNo=5;p.setEndPoint(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?BLANK:df.formatCellValue(row.getCell(5)));
-				columnNo=6;p.setCountry(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?BLANK:df.formatCellValue(row.getCell(6)));
-				columnNo=7;p.setRegion(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?BLANK:df.formatCellValue(row.getCell(7)));
-				columnNo=8;p.setStartCountry(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?BLANK:df.formatCellValue(row.getCell(8)));
-				columnNo=9;p.setStartRegion(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?BLANK:df.formatCellValue(row.getCell(9)));
-				columnNo=10;p.setEndCountry(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?BLANK:df.formatCellValue(row.getCell(10)));
+				columnNo=2;p.setParentChildRelation(null==row.getCell(2)|| null==df.formatCellValue(row.getCell(2))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(2)))?BLANK:df.formatCellValue(row.getCell(2)));
+				columnNo=3;p.setStatus(null==row.getCell(3)|| null==df.formatCellValue(row.getCell(3))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(3)))?BLANK:df.formatCellValue(row.getCell(3)));
+				columnNo=4;p.setCommodity(null==row.getCell(4)|| null==df.formatCellValue(row.getCell(4))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(4)))?BLANK:df.formatCellValue(row.getCell(4)));
+				columnNo=5;p.setStartPoint(null==row.getCell(5)|| null==df.formatCellValue(row.getCell(5))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(5)))?BLANK:df.formatCellValue(row.getCell(5)));
+				columnNo=6;p.setEndPoint(null==row.getCell(6)|| null==df.formatCellValue(row.getCell(6))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(6)))?BLANK:df.formatCellValue(row.getCell(6)));
+				columnNo=7;p.setCountry(null==row.getCell(7)|| null==df.formatCellValue(row.getCell(7))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(7)))?BLANK:df.formatCellValue(row.getCell(7)));
+				columnNo=8;p.setRegion(null==row.getCell(8)|| null==df.formatCellValue(row.getCell(8))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(8)))?BLANK:df.formatCellValue(row.getCell(8)));
+				columnNo=9;p.setStartCountry(null==row.getCell(9)|| null==df.formatCellValue(row.getCell(9))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(9)))?BLANK:df.formatCellValue(row.getCell(9)));
+				columnNo=10;p.setStartRegion(null==row.getCell(10)|| null==df.formatCellValue(row.getCell(10))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(10)))?BLANK:df.formatCellValue(row.getCell(10)));
+				columnNo=11;p.setEndCountry(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?BLANK:df.formatCellValue(row.getCell(11)));
 				
 //				System.out.println("first pipelines");
 				
-				columnNo=11;p.setEndRegion(null==row.getCell(11)|| null==df.formatCellValue(row.getCell(11))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(11)))?BLANK:df.formatCellValue(row.getCell(11)));
-				columnNo=12;p.setRoute(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?BLANK:df.formatCellValue(row.getCell(12)));
-				columnNo=13;p.setPipelineType(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?BLANK:df.formatCellValue(row.getCell(13)));
-				columnNo=14;p.setOnshoreOrOffshore(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?BLANK:df.formatCellValue(row.getCell(14)));
-				columnNo=15;p.setStartDate(null==row.getCell(15) || null==df.formatCellValue(row.getCell(15))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?null:new Date(df.formatCellValue(row.getCell(15))));
-				columnNo=16;p.setCommodityDetails(null==row.getCell(16)|| null==df.formatCellValue(row.getCell(16))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?BLANK:df.formatCellValue(row.getCell(16)));
-				columnNo=17;p.setBasicDetailsSource(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
-				columnNo=18;p.setBasicDetailNotes(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
-				columnNo=19;p.setOperator(null==row.getCell(19)|| null==df.formatCellValue(row.getCell(19))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(19)))?BLANK:df.formatCellValue(row.getCell(19)));
-				columnNo=20;p.setEquityPartners(null==row.getCell(20)|| null==df.formatCellValue(row.getCell(20))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(20)))?BLANK:df.formatCellValue(row.getCell(20)));
+				columnNo=12;p.setEndRegion(null==row.getCell(12)|| null==df.formatCellValue(row.getCell(12))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(12)))?BLANK:df.formatCellValue(row.getCell(12)));
+				columnNo=13;p.setRoute(null==row.getCell(13)|| null==df.formatCellValue(row.getCell(13))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(13)))?BLANK:df.formatCellValue(row.getCell(13)));
+				columnNo=14;p.setPipelineType(null==row.getCell(14)|| null==df.formatCellValue(row.getCell(14))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(14)))?BLANK:df.formatCellValue(row.getCell(14)));
+				columnNo=15;p.setOnshoreOrOffshore(null==row.getCell(15)|| null==df.formatCellValue(row.getCell(15))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(15)))?BLANK:df.formatCellValue(row.getCell(15)));
+				columnNo=16;p.setStartDate(null==row.getCell(16) || null==df.formatCellValue(row.getCell(16))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(16)))?null:new Date(df.formatCellValue(row.getCell(16))));
+				columnNo=17;p.setCommodityDetails(null==row.getCell(17)|| null==df.formatCellValue(row.getCell(17))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(17)))?BLANK:df.formatCellValue(row.getCell(17)));
+				columnNo=18;p.setBasicDetailsSource(null==row.getCell(18)|| null==df.formatCellValue(row.getCell(18))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(18)))?BLANK:df.formatCellValue(row.getCell(18)));
+				columnNo=19;p.setBasicDetailNotes(null==row.getCell(19)|| null==df.formatCellValue(row.getCell(19))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(19)))?BLANK:df.formatCellValue(row.getCell(19)));
+				columnNo=20;p.setOperator(null==row.getCell(20)|| null==df.formatCellValue(row.getCell(20))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(20)))?BLANK:df.formatCellValue(row.getCell(20)));
+				columnNo=21;p.setEquityPartners(null==row.getCell(21)|| null==df.formatCellValue(row.getCell(21))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(21)))?BLANK:df.formatCellValue(row.getCell(21)));
 				
 //				System.out.println("second pipelines");
-				
-				columnNo=21;p.setEquityStakes(null==row.getCell(21) || null==df.formatCellValue(row.getCell(21))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(21)))?0:Double.valueOf(df.formatCellValue(row.createCell(21))));
-				columnNo=22;p.setCompanySource(null==row.getCell(22)|| null==df.formatCellValue(row.getCell(22))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(22)))?BLANK:df.formatCellValue(row.getCell(22)));
-				columnNo=23;p.setCompanyNotes(null==row.getCell(23)|| null==df.formatCellValue(row.getCell(23))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(23)))?BLANK:df.formatCellValue(row.getCell(23)));
-				columnNo=24;p.setLength(null==row.getCell(24)|| null==df.formatCellValue(row.getCell(24))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(24)))?0:Double.valueOf(df.formatCellValue(row.createCell(24))));
-				columnNo=25;p.setDiameter(null==row.getCell(25)|| null==df.formatCellValue(row.getCell(25))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(25)))?0:Double.valueOf(df.formatCellValue(row.createCell(25))));
+				System.out.println(row.getCell(22));
+				columnNo=22;p.setEquityStakes(null==row.getCell(22) || null==df.formatCellValue(row.getCell(22))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(22)))?0:Double.valueOf(df.formatCellValue(row.getCell(22))));
+				columnNo=23;p.setCompanySource(null==row.getCell(23)|| null==df.formatCellValue(row.getCell(23))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(23)))?BLANK:df.formatCellValue(row.getCell(23)));
+				columnNo=24;p.setCompanyNotes(null==row.getCell(24)|| null==df.formatCellValue(row.getCell(24))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(24)))?BLANK:df.formatCellValue(row.getCell(24)));
+				columnNo=25;p.setLength(null==row.getCell(25)|| null==df.formatCellValue(row.getCell(25))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(25)))?0:Double.valueOf(df.formatCellValue(row.getCell(25))));
+				columnNo=26;p.setDiameter(null==row.getCell(26)|| null==df.formatCellValue(row.getCell(26))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(26)))?0:Double.valueOf(df.formatCellValue(row.getCell(26))));
 //				if(row.getCell(25)!=null)
 //				{
 //					if(row.getCell(25).getCellType()== Cell.CELL_TYPE_STRING)
@@ -567,10 +721,10 @@ public class ReadExcelFile {
 //				else
 //					p.setDiameter("");
 				
-				columnNo=26;p.setCapacity(null==row.getCell(26)|| null==df.formatCellValue(row.getCell(26))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(26)))?0:Double.valueOf(df.formatCellValue(row.createCell(26))));
-				columnNo=27;p.setCapex(null==row.getCell(27)|| null==df.formatCellValue(row.getCell(27))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(27)))?0:Double.valueOf(df.formatCellValue(row.createCell(27))));
-				columnNo=28;p.setParameterSource(null==row.getCell(28)|| null==df.formatCellValue(row.getCell(28))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(28)))?BLANK:df.formatCellValue(row.getCell(28)));
-				columnNo=29;p.setParameterNotes(null==row.getCell(29)|| null==df.formatCellValue(row.getCell(29))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(29)))?BLANK:df.formatCellValue(row.getCell(29)));
+				columnNo=27;p.setCapacity(null==row.getCell(27)|| null==df.formatCellValue(row.getCell(27))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(27)))?0:Double.valueOf(df.formatCellValue(row.getCell(27))));
+				columnNo=28;p.setCapex(null==row.getCell(28)|| null==df.formatCellValue(row.getCell(28))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(28)))?0:Double.valueOf(df.formatCellValue(row.getCell(28))));
+				columnNo=29;p.setParameterSource(null==row.getCell(29)|| null==df.formatCellValue(row.getCell(29))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(29)))?BLANK:df.formatCellValue(row.getCell(29)));
+				columnNo=30;p.setParameterNotes(null==row.getCell(30)|| null==df.formatCellValue(row.getCell(30))|| (BLANK).equalsIgnoreCase(df.formatCellValue(row.getCell(30)))?BLANK:df.formatCellValue(row.getCell(30)));
 				
 				pipeLineList.add(p);
 			}

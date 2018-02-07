@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import com.lnganalysis.constants.ApplicationConstants;
 import com.lnganalysis.dao.domain.DomainDao;
+import com.lnganalysis.dao.domain.impl.CompanyOilGasDaoImpl;
 import com.lnganalysis.dao.domain.impl.ContractsDaoImpl;
 import com.lnganalysis.dao.domain.impl.CrudeOilDaoImpl;
 import com.lnganalysis.dao.domain.impl.ExplorationDaoImpl;
@@ -13,8 +14,8 @@ import com.lnganalysis.dao.domain.impl.LngDaoImpl;
 import com.lnganalysis.dao.domain.impl.NaturalGasDaoImpl;
 import com.lnganalysis.dao.domain.impl.PipelineDaoImpl;
 import com.lnganalysis.dao.domain.impl.RefineryDaoImpl;
+import com.lnganalysis.dao.domain.impl.SmallScaleLngDaoImpl;
 import com.lnganalysis.dao.domain.impl.StorageDaoImpl;
-import com.lnganalysis.dao.source.SourceDao;
 import com.lnganalysis.service.TerminalManagementService;
 
 public class TerminalManagementServiceImpl implements TerminalManagementService{
@@ -70,7 +71,11 @@ public class TerminalManagementServiceImpl implements TerminalManagementService{
 		else if(null!=domainType && ("pipeline").equalsIgnoreCase(domainType))
 			domainDao=new PipelineDaoImpl();
 		else if(null!=domainType && ("contracts").equalsIgnoreCase(domainType))
-			domainDao=new ContractsDaoImpl();	
+			domainDao=new ContractsDaoImpl();
+		else if(null!=domainType && ("companywise").equalsIgnoreCase(domainType))
+			domainDao=new CompanyOilGasDaoImpl();
+		else if(null!=domainType && ("smallscalelng").equalsIgnoreCase(domainType))
+			domainDao=new SmallScaleLngDaoImpl();
 		
 		return domainDao;
 	}

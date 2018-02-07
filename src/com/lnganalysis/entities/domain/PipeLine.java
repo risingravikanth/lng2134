@@ -5,6 +5,7 @@ import java.util.Date;
 public class PipeLine {
 	private int id;	
 	private String pipeline;
+	private String parentChildRelation;
 	private String subPipelines;
 	private String status;
 	private String commodity;
@@ -218,6 +219,12 @@ public class PipeLine {
 	}
 	public void setParameterNotes(String parameterNotes) {
 		this.parameterNotes = parameterNotes;
+	}	
+	public String getParentChildRelation() {
+		return parentChildRelation;
+	}
+	public void setParentChildRelation(String parentChildRelation) {
+		this.parentChildRelation = parentChildRelation;
 	}
 	public int getId() {
 		return id;

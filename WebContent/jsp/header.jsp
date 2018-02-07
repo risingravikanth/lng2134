@@ -154,7 +154,8 @@
 									<div class="col-md-6"><b>NaturalGas:</b></div><div><p id="naturalGasCount">${sessionScope.naturalGasCount}</p></div>
 									<div class="col-md-6"><b>Lng:</b></div><div><p id="lngCount">${sessionScope.lngCount}</p></div>
 									<div class="col-md-6"><b>Storage:</b></div><div><p id="storageCount">${sessionScope.storageCount}</p></div>
-									<div class="col-md-6"><b>PipeLine:</b></div><div><p id="pipeLineCount">${sessionScope.pipelineCount}</p></div>									
+									<div class="col-md-6"><b>PipeLine:</b></div><div><p id="pipeLineCount">${sessionScope.pipelineCount}</p></div>
+									<div class="col-md-6"><b>SmallScaleLng:</b></div><div><p id="smallScaleLngCount">${sessionScope.smallScaleLngCount}</p></div>									
 								  <div class="clearfix"></div>	
 								 </li>
 								<!--  <li class="odd"><a href="#">

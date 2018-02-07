@@ -59,6 +59,7 @@ public class LoginServlet  extends HttpServlet{
 						 session.setAttribute(ApplicationConstants.LNG_COUNT ,fus.getLngCount());
 						 session.setAttribute(ApplicationConstants.STORAGE_COUNT,fus.getStorageCount());
 						 session.setAttribute(ApplicationConstants.PIPELINE_COUNT,fus.getPipeLineCount());
+						 session.setAttribute(ApplicationConstants.SMALLSCALELNG_COUNT,fus.getSmallScaleLngCount());
 						 if("N".equalsIgnoreCase(user.getPasswordReset()))
 						 {
 							 rq=request.getRequestDispatcher(JspPageConstants.CHNG_PWD_JSP);							 

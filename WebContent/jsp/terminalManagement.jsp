@@ -82,7 +82,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 															<option>Storage</option>															
 															<option>Lng</option>
 															<option>Pipeline</option>
-															<option>Contracts</option>																																																						
+															<option>Contracts</option>
+															<option>CompanyWise</option>
+															<option>SmallScaleLng</option>																																																						
 														</select>
 													</div>																																																			
 												</div>											    

@@ -85,6 +85,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 															<option>Refinery</option>															
 															<option>Region</option>
 															<option>Operator</option>
+															<option>SmallScaleLng</option>
 															<option>Status</option>
 															<option>Storage</option>
 															<option>Type</option>																																										

@@ -13,6 +13,8 @@ public class History {
 	private int pipelinesCount;
 	private int supplyDemandCount;
 	private int contractsCount;
+	private int companyOilGasCount;
+	private int smallScaleLngCount;
 	private User user;
 	private Date createdDate;
 	
@@ -67,11 +69,24 @@ public class History {
 		this.supplyDemandCount = supplyDemandCount;
 	}
 	
+	public int getCompanyOilGasCount() {
+		return companyOilGasCount;
+	}
+	public void setCompanyOilGasCount(int companyOilGasCount) {
+		this.companyOilGasCount = companyOilGasCount;
+	}
 	public int getContractsCount() {
 		return contractsCount;
 	}
 	public void setContractsCount(int contractsCount) {
 		this.contractsCount = contractsCount;
+	}
+	
+	public int getSmallScaleLngCount() {
+		return smallScaleLngCount;
+	}
+	public void setSmallScaleLngCount(int smallScaleLngCount) {
+		this.smallScaleLngCount = smallScaleLngCount;
 	}
 	public User getUser() {
 		return user;

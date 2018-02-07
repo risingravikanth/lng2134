@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.lnganalysis.constants.ApplicationConstants;
+import com.lnganalysis.entities.domain.CompanyOilGas;
 import com.lnganalysis.entities.domain.Contracts;
 import com.lnganalysis.entities.domain.CrudeOil;
 import com.lnganalysis.entities.domain.Exploration;
@@ -14,11 +15,13 @@ import com.lnganalysis.entities.domain.Lng;
 import com.lnganalysis.entities.domain.NaturalGas;
 import com.lnganalysis.entities.domain.PipeLine;
 import com.lnganalysis.entities.domain.Refinery;
+import com.lnganalysis.entities.domain.SmallScaleLng;
 import com.lnganalysis.entities.domain.Storage;
 import com.lnganalysis.entities.domain.SupplyDemand;
 
 public class DataValidationHelper {
-    static final Logger logger=Logger.getLogger(DataValidationHelper.class);			
+    static final Logger logger=Logger.getLogger(DataValidationHelper.class);
+    static final String BLANK="";
 	public  boolean validateCountries(Object domainObject,List<String> countriesList)throws Exception
 	{
 		logger.info("Class - DataValidationHelper - validateCountries()");
@@ -26,7 +29,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Exploration exploration=(Exploration)domainObject;
-			if(null!=exploration.getCountry() && !("").equalsIgnoreCase(exploration.getCountry()))
+			if(null!=exploration.getCountry() && !(BLANK).equalsIgnoreCase(exploration.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -41,7 +44,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getCountry() && !("").equalsIgnoreCase(crudeOil.getCountry()))
+			if(null!=crudeOil.getCountry() && !(BLANK).equalsIgnoreCase(crudeOil.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -55,7 +58,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getCountry() && !("").equalsIgnoreCase(naturalGas.getCountry()))
+			if(null!=naturalGas.getCountry() && !(BLANK).equalsIgnoreCase(naturalGas.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -71,7 +74,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getCountry() && !("").equalsIgnoreCase(refinery.getCountry()))
+			if(null!=refinery.getCountry() && !(BLANK).equalsIgnoreCase(refinery.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -87,7 +90,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Storage storage=(Storage)domainObject;
-			if(null!=storage.getCountry() && !("").equalsIgnoreCase(storage.getCountry()))
+			if(null!=storage.getCountry() && !(BLANK).equalsIgnoreCase(storage.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -103,7 +106,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getCountry() && !("").equalsIgnoreCase(lng.getCountry()))
+			if(null!=lng.getCountry() && !(BLANK).equalsIgnoreCase(lng.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -118,7 +121,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			PipeLine pipeLine=(PipeLine)domainObject;
-			if(null!=pipeLine.getCountry() && !("").equalsIgnoreCase(pipeLine.getCountry()))
+			if(null!=pipeLine.getCountry() && !(BLANK).equalsIgnoreCase(pipeLine.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -133,7 +136,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			SupplyDemand supplyDemand=(SupplyDemand)domainObject;
-			if(null!=supplyDemand.getCountry() && !("").equalsIgnoreCase(supplyDemand.getCountry()))
+			if(null!=supplyDemand.getCountry() && !(BLANK).equalsIgnoreCase(supplyDemand.getCountry()))
 			{
 				for(int i=0;i<countriesList.size();i++)
 				{
@@ -144,7 +147,34 @@ public class DataValidationHelper {
 			}
 						
 		}
-		
+		if(domainObject instanceof CompanyOilGas)
+		{
+			boolean flag=false;
+			CompanyOilGas cog=(CompanyOilGas)domainObject;
+			if(null!=cog.getCountry() && !(BLANK).equalsIgnoreCase(cog.getCountry()))
+			{
+				for(int i=0;i<countriesList.size();i++)
+				{
+					if(cog.getCountry().equalsIgnoreCase(countriesList.get(i)))
+						flag=true;					
+				}
+				return flag;
+			}
+		}
+		if(domainObject instanceof SmallScaleLng)
+		{
+			boolean flag=false;
+			SmallScaleLng ssl=(SmallScaleLng)domainObject;
+			if(null!=ssl.getCountry() && !(BLANK).equalsIgnoreCase(ssl.getCountry()))
+			{
+				for(int i=0;i<countriesList.size();i++)
+				{
+					if(ssl.getCountry().equalsIgnoreCase(countriesList.get(i)))
+						flag=true;					
+				}
+				return flag;
+			}
+		}
 		return true;// If above all is not satisfied that means the condition in called method should not be true
 	}
 	public boolean validateCountries(Object domainObject,List<String> countriesList,String countryType)
@@ -156,11 +186,11 @@ public class DataValidationHelper {
 			Contracts contracts=(Contracts)domainObject;
 			if(null!=countryType && "export".equalsIgnoreCase(countryType))
 			{
-				if(null!=contracts.getExportCompany() && !("").equalsIgnoreCase(contracts.getExportCompany()))
+				if(null!=contracts.getExportCountry() && !(BLANK).equalsIgnoreCase(contracts.getExportCountry()))
 				{
 					for(int i=0;i<countriesList.size();i++)
 					{
-						if(contracts.getExportCompany().equalsIgnoreCase(countriesList.get(i)))
+						if(contracts.getExportCountry().equalsIgnoreCase(countriesList.get(i)))
 							flag=true;					
 					}
 					return flag;
@@ -168,11 +198,11 @@ public class DataValidationHelper {
 			}
 			else
 			{
-				if(null!=contracts.getImportCompany() && !("").equalsIgnoreCase(contracts.getImportCompany()))
+				if(null!=contracts.getImportCountry() && !(BLANK).equalsIgnoreCase(contracts.getImportCountry()))
 				{
 					for(int i=0;i<countriesList.size();i++)
 					{
-						if(contracts.getImportCompany().equalsIgnoreCase(countriesList.get(i)))
+						if(contracts.getImportCountry().equalsIgnoreCase(countriesList.get(i)))
 							flag=true;					
 					}
 					return flag;
@@ -190,7 +220,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Exploration exploration=(Exploration)domainObject;
-			if(null!=exploration.getRegion() && !("").equalsIgnoreCase(exploration.getRegion()))
+			if(null!=exploration.getRegion() && !(BLANK).equalsIgnoreCase(exploration.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
@@ -204,7 +234,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getRegion() && !("").equalsIgnoreCase(crudeOil.getRegion()))
+			if(null!=crudeOil.getRegion() && !(BLANK).equalsIgnoreCase(crudeOil.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
@@ -218,7 +248,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getRegion() && !("").equalsIgnoreCase(naturalGas.getRegion()))
+			if(null!=naturalGas.getRegion() && !(BLANK).equalsIgnoreCase(naturalGas.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
@@ -233,7 +263,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getRegion() && !("").equalsIgnoreCase(refinery.getRegion()))
+			if(null!=refinery.getRegion() && !(BLANK).equalsIgnoreCase(refinery.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
@@ -249,7 +279,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Storage storage=(Storage)domainObject;
-			if(null!=storage.getRegion() && !("").equalsIgnoreCase(storage.getRegion()))
+			if(null!=storage.getRegion() && !(BLANK).equalsIgnoreCase(storage.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
@@ -265,7 +295,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getRegion() && !("").equalsIgnoreCase(lng.getRegion()))
+			if(null!=lng.getRegion() && !(BLANK).equalsIgnoreCase(lng.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
@@ -280,7 +310,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			PipeLine pipeLine=(PipeLine)domainObject;
-			if(null!=pipeLine.getRegion() && !("").equalsIgnoreCase(pipeLine.getRegion()))
+			if(null!=pipeLine.getRegion() && !(BLANK).equalsIgnoreCase(pipeLine.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
@@ -295,11 +325,26 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			SupplyDemand supplyDemand=(SupplyDemand)domainObject;
-			if(null!=supplyDemand.getRegion() && !("").equalsIgnoreCase(supplyDemand.getRegion()))
+			if(null!=supplyDemand.getRegion() && !(BLANK).equalsIgnoreCase(supplyDemand.getRegion()))
 			{
 				for(int i=0;i<regionList.size();i++)
 				{
 					if(supplyDemand.getRegion().equalsIgnoreCase(regionList.get(i)))
+						flag=true;					
+				}
+				return flag;
+			}
+					
+		}
+		if(domainObject instanceof CompanyOilGas)
+		{
+			boolean flag=false;
+			CompanyOilGas cog=(CompanyOilGas)domainObject;
+			if(null!=cog.getRegion() && !(BLANK).equalsIgnoreCase(cog.getRegion()))
+			{
+				for(int i=0;i<regionList.size();i++)
+				{
+					if(cog.getRegion().equalsIgnoreCase(regionList.get(i)))
 						flag=true;					
 				}
 				return flag;
@@ -312,7 +357,7 @@ public class DataValidationHelper {
 	{
 		logger.info("Class - DataValidationHelper - validateLngType()");
 //			Lng lng=(Lng)domainObject;
-			if(null!=lng.getType() && !("").equalsIgnoreCase(lng.getType()))
+			if(null!=lng.getType() && !(BLANK).equalsIgnoreCase(lng.getType()))
 				return (lng.getType().equalsIgnoreCase(ApplicationConstants.LIQUEFACTION) || lng.getType().equalsIgnoreCase(ApplicationConstants.REGASIFICATION));
 			
 			return true;
@@ -325,7 +370,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Exploration exploration=(Exploration)domainObject;
-			if(null!=exploration.getStatus() && !("").equalsIgnoreCase(exploration.getStatus()))
+			if(null!=exploration.getStatus() && !(BLANK).equalsIgnoreCase(exploration.getStatus()))
 			{
 				for(int i=0;i<statusList.size();i++)
 				{
@@ -341,7 +386,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getStatus() && !("").equalsIgnoreCase(crudeOil.getStatus()))
+			if(null!=crudeOil.getStatus() && !(BLANK).equalsIgnoreCase(crudeOil.getStatus()))
 			{
 				for(int i=0;i<statusList.size();i++)
 				{
@@ -355,7 +400,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getStatus() && !("").equalsIgnoreCase(naturalGas.getStatus()))
+			if(null!=naturalGas.getStatus() && !(BLANK).equalsIgnoreCase(naturalGas.getStatus()))
 			{
 				for(int i=0;i<statusList.size();i++)
 				{
@@ -371,7 +416,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getStatus() && !("").equalsIgnoreCase(refinery.getStatus()))
+			if(null!=refinery.getStatus() && !(BLANK).equalsIgnoreCase(refinery.getStatus()))
 			{
 				for(int i=0;i<statusList.size();i++)
 				{
@@ -387,7 +432,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Storage storage=(Storage)domainObject;
-			if(null!=storage.getStatus() && !("").equalsIgnoreCase(storage.getStatus()))
+			if(null!=storage.getStatus() && !(BLANK).equalsIgnoreCase(storage.getStatus()))
 			{
 				for(int i=0;i<statusList.size();i++)
 				{
@@ -403,7 +448,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getStatus() && !("").equalsIgnoreCase(lng.getStatus()))
+			if(null!=lng.getStatus() && !(BLANK).equalsIgnoreCase(lng.getStatus()))
 			{
 				for(int i=0;i<statusList.size();i++)
 				{
@@ -418,11 +463,26 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			PipeLine pipeLine=(PipeLine)domainObject;
-			if(null!=pipeLine.getStatus() && !("").equalsIgnoreCase(pipeLine.getStatus()))
+			if(null!=pipeLine.getStatus() && !(BLANK).equalsIgnoreCase(pipeLine.getStatus()))
 			{
 				for(int i=0;i<statusList.size();i++)
 				{
 					if(pipeLine.getStatus().equalsIgnoreCase(statusList.get(i)))
+						flag=true;					
+				}
+				return flag;
+			}
+						
+		}
+		if(domainObject instanceof SmallScaleLng)
+		{
+			boolean flag=false;
+			SmallScaleLng smallScaleLng=(SmallScaleLng)domainObject;
+			if(null!=smallScaleLng.getStatus() && !(BLANK).equalsIgnoreCase(smallScaleLng.getStatus()))
+			{
+				for(int i=0;i<statusList.size();i++)
+				{
+					if(smallScaleLng.getStatus().equalsIgnoreCase(statusList.get(i)))
 						flag=true;					
 				}
 				return flag;
@@ -438,7 +498,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Exploration exploration=(Exploration)domainObject;
-			if(null!=exploration.getOperator() && !("").equalsIgnoreCase(exploration.getOperator()))
+			if(null!=exploration.getOperator() && !(BLANK).equalsIgnoreCase(exploration.getOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -476,7 +536,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			PipeLine pipeLine=(PipeLine)domainObject;
-			if(null!=pipeLine.getOperator() && !("").equalsIgnoreCase(pipeLine.getOperator()))
+			if(null!=pipeLine.getOperator() && !(BLANK).equalsIgnoreCase(pipeLine.getOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -486,7 +546,40 @@ public class DataValidationHelper {
 				return flag;
 			}
 		}
+		
 		return true;// If above all is not satisfied that means the condition in called method should not be true
+	}
+	// SmallScaleLng column
+	public boolean validateTechnologyProviderCompany(SmallScaleLng ssl,List<String> singleSourceList)
+	{
+		boolean flag=false;
+		
+		if(null!=ssl.getTechnologyProviderCompany() && !(BLANK).equalsIgnoreCase(ssl.getTechnologyProviderCompany()))
+		{
+			for(int i=0;i<singleSourceList.size();i++)
+			{
+				if(ssl.getTechnologyProviderCompany().equalsIgnoreCase(singleSourceList.get(i)))
+					flag=true;
+			}
+			return flag;
+		}
+		return true;
+	}
+	//SmallScaleLng column
+	public boolean validateCompany(SmallScaleLng ssl,List<String> singleSourceList)
+	{
+		boolean flag=false;
+		
+		if(null!=ssl.getCompany() && !(BLANK).equalsIgnoreCase(ssl.getCompany()))
+		{
+			for(int i=0;i<singleSourceList.size();i++)
+			{
+				if(ssl.getCompany().equalsIgnoreCase(singleSourceList.get(i)))
+					flag=true;
+			}
+			return flag;
+		}
+		return true;
 	}
 	public boolean validateType(Object domainObject,List<String> typeList)throws Exception
 	{
@@ -495,11 +588,25 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getType() && !("").equalsIgnoreCase(refinery.getType()))
+			if(null!=refinery.getType() && !(BLANK).equalsIgnoreCase(refinery.getType()))
 			{
 				for(int i=0;i<typeList.size();i++)
 				{
 					if(refinery.getType().equalsIgnoreCase(typeList.get(i)))
+						flag=true;
+				}
+				return flag;
+			}
+		}
+		if(domainObject instanceof SmallScaleLng)
+		{
+			boolean flag=false;
+			SmallScaleLng smallScaleLng=(SmallScaleLng)domainObject;
+			if(null!=smallScaleLng.getType() && !(BLANK).equalsIgnoreCase(smallScaleLng.getType()))
+			{
+				for(int i=0;i<typeList.size();i++)
+				{
+					if(smallScaleLng.getType().equalsIgnoreCase(typeList.get(i)))
 						flag=true;
 				}
 				return flag;
@@ -514,7 +621,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getCurrentOperator() && !("").equalsIgnoreCase(refinery.getCurrentOperator()))
+			if(null!=refinery.getCurrentOperator() && !(BLANK).equalsIgnoreCase(refinery.getCurrentOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -528,7 +635,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Storage storage=(Storage)domainObject;
-			if(null!=storage.getCurrentOperator() && !("").equalsIgnoreCase(storage.getCurrentOperator()))
+			if(null!=storage.getCurrentOperator() && !(BLANK).equalsIgnoreCase(storage.getCurrentOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -543,7 +650,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getOperator() && !("").equalsIgnoreCase(lng.getOperator()))
+			if(null!=lng.getOperator() && !(BLANK).equalsIgnoreCase(lng.getOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -557,7 +664,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getCurrentOperator() && !("").equalsIgnoreCase(crudeOil.getCurrentOperator()))
+			if(null!=crudeOil.getCurrentOperator() && !(BLANK).equalsIgnoreCase(crudeOil.getCurrentOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -571,7 +678,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getCurrentOperator() && !("").equalsIgnoreCase(naturalGas.getCurrentOperator()))
+			if(null!=naturalGas.getCurrentOperator() && !(BLANK).equalsIgnoreCase(naturalGas.getCurrentOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -590,7 +697,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Storage storage=(Storage)domainObject;
-			if(null!=storage.getCurrentOwners() && !("").equalsIgnoreCase(storage.getCurrentOwners()))
+			if(null!=storage.getCurrentOwners() && !(BLANK).equalsIgnoreCase(storage.getCurrentOwners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -604,7 +711,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getCurrentOwners() && !("").equalsIgnoreCase(crudeOil.getCurrentOwners()))
+			if(null!=crudeOil.getCurrentOwners() && !(BLANK).equalsIgnoreCase(crudeOil.getCurrentOwners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -619,11 +726,25 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getCurrentOwners() && !("").equalsIgnoreCase(naturalGas.getCurrentOwners()))
+			if(null!=naturalGas.getCurrentOwners() && !(BLANK).equalsIgnoreCase(naturalGas.getCurrentOwners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
 					if(naturalGas.getCurrentOwners().trim().equalsIgnoreCase(singleSourceList.get(i)))
+						flag=true;
+				}
+				return flag;
+			}
+		}
+		if(domainObject instanceof CompanyOilGas)
+		{
+			boolean flag=false;
+			CompanyOilGas companyOilGas=(CompanyOilGas)domainObject;
+			if(null!=companyOilGas.getName() && !(BLANK).equalsIgnoreCase(companyOilGas.getName()))
+			{
+				for(int i=0;i<singleSourceList.size();i++)
+				{
+					if(companyOilGas.getName().trim().equalsIgnoreCase(singleSourceList.get(i)))
 						flag=true;
 				}
 				return flag;
@@ -638,7 +759,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getCurrentEquityPartners() && !("").equalsIgnoreCase(refinery.getCurrentEquityPartners()))
+			if(null!=refinery.getCurrentEquityPartners() && !(BLANK).equalsIgnoreCase(refinery.getCurrentEquityPartners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -652,7 +773,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getEquityPartners() && !("").equalsIgnoreCase(lng.getEquityPartners()))
+			if(null!=lng.getEquityPartners() && !(BLANK).equalsIgnoreCase(lng.getEquityPartners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -673,7 +794,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getHistoricEquityPartners() && !("").equalsIgnoreCase(refinery.getHistoricEquityPartners()))
+			if(null!=refinery.getHistoricEquityPartners() && !(BLANK).equalsIgnoreCase(refinery.getHistoricEquityPartners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -687,7 +808,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getHistoricEquityPartner() && !("").equalsIgnoreCase(lng.getHistoricEquityPartner()))
+			if(null!=lng.getHistoricEquityPartner() && !(BLANK).equalsIgnoreCase(lng.getHistoricEquityPartner()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -708,7 +829,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Refinery refinery=(Refinery)domainObject;
-			if(null!=refinery.getHistoricOperator() && !("").equalsIgnoreCase(refinery.getHistoricOperator()))
+			if(null!=refinery.getHistoricOperator() && !(BLANK).equalsIgnoreCase(refinery.getHistoricOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -722,7 +843,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Storage storage=(Storage)domainObject;
-			if(null!=storage.getHistoricOperator() && !("").equalsIgnoreCase(storage.getHistoricOperator()))
+			if(null!=storage.getHistoricOperator() && !(BLANK).equalsIgnoreCase(storage.getHistoricOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -736,7 +857,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getHistoricOperator() && !("").equalsIgnoreCase(lng.getHistoricOperator()))
+			if(null!=lng.getHistoricOperator() && !(BLANK).equalsIgnoreCase(lng.getHistoricOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -750,7 +871,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getHistoricOperator() && !("").equalsIgnoreCase(crudeOil.getHistoricOperator()))
+			if(null!=crudeOil.getHistoricOperator() && !(BLANK).equalsIgnoreCase(crudeOil.getHistoricOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -764,7 +885,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getHistoricOperator() && !("").equalsIgnoreCase(naturalGas.getHistoricOperator()))
+			if(null!=naturalGas.getHistoricOperator() && !(BLANK).equalsIgnoreCase(naturalGas.getHistoricOperator()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -783,7 +904,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Storage storage=(Storage)domainObject;
-			if(null!=storage.getHistoricOwners() && !("").equalsIgnoreCase(storage.getHistoricOwners()))
+			if(null!=storage.getHistoricOwners() && !(BLANK).equalsIgnoreCase(storage.getHistoricOwners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -797,7 +918,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getHistoricOwners() && !("").equalsIgnoreCase(crudeOil.getHistoricOwners()))
+			if(null!=crudeOil.getHistoricOwners() && !(BLANK).equalsIgnoreCase(crudeOil.getHistoricOwners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -811,7 +932,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getHistoricOwners() && !("").equalsIgnoreCase(naturalGas.getHistoricOwners()))
+			if(null!=naturalGas.getHistoricOwners() && !(BLANK).equalsIgnoreCase(naturalGas.getHistoricOwners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -830,7 +951,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			Exploration exploration=(Exploration)domainObject;
-			if(null!=exploration.getEquityPartners() && !("").equalsIgnoreCase(exploration.getEquityPartners()))
+			if(null!=exploration.getEquityPartners() && !(BLANK).equalsIgnoreCase(exploration.getEquityPartners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -844,7 +965,7 @@ public class DataValidationHelper {
 		{
 			boolean flag=false;
 			PipeLine pipeLine=(PipeLine)domainObject;
-			if(null!=pipeLine.getEquityPartners() && !("").equalsIgnoreCase(pipeLine.getEquityPartners()))
+			if(null!=pipeLine.getEquityPartners() && !(BLANK).equalsIgnoreCase(pipeLine.getEquityPartners()))
 			{
 				for(int i=0;i<singleSourceList.size();i++)
 				{
@@ -1175,21 +1296,21 @@ public class DataValidationHelper {
 		if(domainObject instanceof Exploration)
 		{
 			Exploration exploration=(Exploration)domainObject;
-			if(null!=exploration.getOnShoreOrOffShore() && !("").equalsIgnoreCase(exploration.getOnShoreOrOffShore()))
+			if(null!=exploration.getOnShoreOrOffShore() && !(BLANK).equalsIgnoreCase(exploration.getOnShoreOrOffShore()))
 			return (exploration.getOnShoreOrOffShore().equalsIgnoreCase(ApplicationConstants.ONSHORE) || exploration.getOnShoreOrOffShore().equalsIgnoreCase(ApplicationConstants.OFFSHORE));
 				
 		}
 		if(domainObject instanceof CrudeOil)
 		{
 			CrudeOil crudeOil=(CrudeOil)domainObject;
-			if(null!=crudeOil.getOnshoreOrOffshore() && !("").equalsIgnoreCase(crudeOil.getOnshoreOrOffshore()))
+			if(null!=crudeOil.getOnshoreOrOffshore() && !(BLANK).equalsIgnoreCase(crudeOil.getOnshoreOrOffshore()))
 			return (crudeOil.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.ONSHORE) || crudeOil.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.OFFSHORE));
 		
 		}
 		if(domainObject instanceof NaturalGas)
 		{
 			NaturalGas naturalGas=(NaturalGas)domainObject;
-			if(null!=naturalGas.getOnshoreOrOffshore() && !("").equalsIgnoreCase(naturalGas.getOnshoreOrOffshore()))
+			if(null!=naturalGas.getOnshoreOrOffshore() && !(BLANK).equalsIgnoreCase(naturalGas.getOnshoreOrOffshore()))
 			return (naturalGas.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.ONSHORE) || naturalGas.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.OFFSHORE));
 			
 		}
@@ -1208,13 +1329,13 @@ public class DataValidationHelper {
 		if(domainObject instanceof Lng)
 		{
 			Lng lng=(Lng)domainObject;
-			if(null!=lng.getOnshoreOrOffshore() && !("").equalsIgnoreCase(lng.getOnshoreOrOffshore()))
+			if(null!=lng.getOnshoreOrOffshore() && !(BLANK).equalsIgnoreCase(lng.getOnshoreOrOffshore()))
 			return (lng.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.ONSHORE) || lng.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.OFFSHORE));
 		}
 		if(domainObject instanceof PipeLine)
 		{
 			PipeLine pipeLine=(PipeLine)domainObject;
-			if(null!=pipeLine.getOnshoreOrOffshore() && !("").equalsIgnoreCase(pipeLine.getOnshoreOrOffshore()))
+			if(null!=pipeLine.getOnshoreOrOffshore() && !(BLANK).equalsIgnoreCase(pipeLine.getOnshoreOrOffshore()))
 			return (pipeLine.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.ONSHORE) || pipeLine.getOnshoreOrOffshore().equalsIgnoreCase(ApplicationConstants.OFFSHORE));
 		}
 		return true;
@@ -1226,7 +1347,7 @@ public class DataValidationHelper {
 		Set description=new HashSet<String>();
 		
 			
-			if(null!=refinery.getAlkylationCapacityUnit() && !("").equalsIgnoreCase(refinery.getAlkylationCapacityUnit()))
+			if(null!=refinery.getAlkylationCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getAlkylationCapacityUnit()))
 			{
 				boolean alkylationCapacityUnit=false;
 				 for(int i=0;i<refinerySourceList.size();i++)
@@ -1239,7 +1360,7 @@ public class DataValidationHelper {
 			}
 			
 				
-			if(null!=refinery.getAromaticsCapacityUnit() && !("").equalsIgnoreCase(refinery.getAromaticsCapacityUnit()))
+			if(null!=refinery.getAromaticsCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getAromaticsCapacityUnit()))
 			{
 				boolean aromaticsCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1251,7 +1372,7 @@ public class DataValidationHelper {
 						 description.add(ApplicationConstants.COLUMN_HEADER_AROMATICS_CAPACITY_UNIT);
 			}
 			
-			if(null!=refinery.getPolymerizationCapacityUnit() && !("").equalsIgnoreCase(refinery.getPolymerizationCapacityUnit()))
+			if(null!=refinery.getPolymerizationCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getPolymerizationCapacityUnit()))
 			{
 				boolean polymerizationCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1263,7 +1384,7 @@ public class DataValidationHelper {
 						 description.add(ApplicationConstants.COLUMN_HEADER_POLMERIZATION_CAPACITY_UNIT);
 			}
 			
-			if(null!=refinery.getLubesCapacityUnit() && !("").equalsIgnoreCase(refinery.getLubesCapacityUnit()))
+			if(null!=refinery.getLubesCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getLubesCapacityUnit()))
 			{
 				boolean lubesCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1275,7 +1396,7 @@ public class DataValidationHelper {
 						 description.add(ApplicationConstants.COLUMN_HEADER_LUBES_CAPACITY_UNIT);
 			}
 			
-			if(null!=refinery.getOxygenatesCapacityUnit() && !("").equalsIgnoreCase(refinery.getOxygenatesCapacityUnit()))
+			if(null!=refinery.getOxygenatesCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getOxygenatesCapacityUnit()))
 			{
 				boolean oxygenatesCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1286,7 +1407,7 @@ public class DataValidationHelper {
 				if(!oxygenatesCapacityUnit)
 					description.add(ApplicationConstants.COLUMN_HEADER_OXYGENATES_CAPACITY_UNIT);
 			}
-			if(null!=refinery.getCokeCapacityUnit() && !("").equalsIgnoreCase(refinery.getCokeCapacityUnit()))
+			if(null!=refinery.getCokeCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getCokeCapacityUnit()))
 			{
 				boolean cokeCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1297,7 +1418,7 @@ public class DataValidationHelper {
 				if(!cokeCapacityUnit)
 					description.add(ApplicationConstants.COLUMN_HEADER_COKE_CAPACITY_UNIT);
 			}
-			if(null!=refinery.getSulphurCapacityUnit() && !("").equalsIgnoreCase(refinery.getSulphurCapacityUnit()))
+			if(null!=refinery.getSulphurCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getSulphurCapacityUnit()))
 			{
 				boolean sulphurCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1309,7 +1430,7 @@ public class DataValidationHelper {
 					description.add(ApplicationConstants.COLUMN_HEADER_SULPHUR_CAPACITY_UNIT);
 			}
 			
-			if(null!=refinery.getHydrogenCapacityUnit() && !("").equalsIgnoreCase(refinery.getHydrogenCapacityUnit()))
+			if(null!=refinery.getHydrogenCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getHydrogenCapacityUnit()))
 			{
 				boolean hydrogenCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1321,7 +1442,7 @@ public class DataValidationHelper {
 					description.add(ApplicationConstants.COLUMN_HEADER_HYDROGEN_CAPACITY_UNIT);
 			}
 			
-			if(null!=refinery.getAsphaltCapacityUnit() && !("").equalsIgnoreCase(refinery.getAsphaltCapacityUnit()))
+			if(null!=refinery.getAsphaltCapacityUnit() && !(BLANK).equalsIgnoreCase(refinery.getAsphaltCapacityUnit()))
 			{
 				boolean asphaltCapacityUnit=false;
 				for(int i=0;i<refinerySourceList.size();i++)
@@ -1338,7 +1459,7 @@ public class DataValidationHelper {
 	{
 		logger.info("Class - DataValidationHelper - validateStorageSpecificFields()");
 		Set<String> description=new HashSet<String>();
-		if(null!=storage.getProductsStored() && !("").equalsIgnoreCase(storage.getProductsStored()))
+		if(null!=storage.getProductsStored() && !(BLANK).equalsIgnoreCase(storage.getProductsStored()))
 		{
 			boolean productsStored=false;
 			for(int i=0;i<storageSourceList.size();i++)
@@ -1351,7 +1472,7 @@ public class DataValidationHelper {
 				description.add(ApplicationConstants.COLUMN_HEADER_PRODUCTS_STORED);
 		}
 		
-		if(null!=storage.getModeOfAccess() && !("").equalsIgnoreCase(storage.getModeOfAccess()))
+		if(null!=storage.getModeOfAccess() && !(BLANK).equalsIgnoreCase(storage.getModeOfAccess()))
 		{
 			boolean modeOfAccess=false;
 			for(int i=0;i<storageSourceList.size();i++)
@@ -1368,7 +1489,7 @@ public class DataValidationHelper {
 	{
 		logger.info("Class - DataValidationHelper - validateLngSpecificFields()");
 		Set<String> description=new HashSet<String>();
-		if(null!=lng.getFeedDetails() && !("").equalsIgnoreCase(lng.getFeedDetails()))
+		if(null!=lng.getFeedDetails() && !(BLANK).equalsIgnoreCase(lng.getFeedDetails()))
 		{
 			boolean feedDetails=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1379,7 +1500,7 @@ public class DataValidationHelper {
 			if(!feedDetails)
 				description.add(ApplicationConstants.COLUMN_HEADER_FEED_DETAILS);
 		}
-		if(null!=lng.getFidDetails() && !("").equalsIgnoreCase(lng.getFidDetails()))
+		if(null!=lng.getFidDetails() && !(BLANK).equalsIgnoreCase(lng.getFidDetails()))
 		{
 			
 			boolean fidDetails=false;
@@ -1392,7 +1513,7 @@ public class DataValidationHelper {
 			if(!fidDetails)
 				description.add(ApplicationConstants.COLUMN_HEADER_FID_DETAILS);
 		}
-		if(null!=lng.getConstructionStatusDetails() && !("").equalsIgnoreCase(lng.getConstructionStatusDetails()))
+		if(null!=lng.getConstructionStatusDetails() && !(BLANK).equalsIgnoreCase(lng.getConstructionStatusDetails()))
 		{
 			boolean constructionStatusDetails=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1403,7 +1524,7 @@ public class DataValidationHelper {
 			if(!constructionStatusDetails)
 				description.add(ApplicationConstants.COLUMN_HEADER_CONSTRUCTION_STATUS_DETAILS);
 		}
-		if(null!=lng.getTechnologyDetails() && !("").equalsIgnoreCase(lng.getTechnologyDetails()))
+		if(null!=lng.getTechnologyDetails() && !(BLANK).equalsIgnoreCase(lng.getTechnologyDetails()))
 		{
 			boolean technologyDetails=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1414,7 +1535,7 @@ public class DataValidationHelper {
 			if(!technologyDetails)
 				description.add(ApplicationConstants.COLUMN_HEADER_TECHNOLOGY_DETAILS);
 		}
-		if(null!=lng.getAdditionalProducts() && !("").equalsIgnoreCase(lng.getAdditionalProducts()))
+		if(null!=lng.getAdditionalProducts() && !(BLANK).equalsIgnoreCase(lng.getAdditionalProducts()))
 		{
 			boolean additionalProducts=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1425,7 +1546,7 @@ public class DataValidationHelper {
 			if(!additionalProducts)
 				description.add(ApplicationConstants.COLUMN_HEADER_ADDITIONAL_PRODUCTS);
 		}
-		if(null!=lng.getAdditionalProductsProductionUnit() && !("").equalsIgnoreCase(lng.getAdditionalProductsProductionUnit()))
+		if(null!=lng.getAdditionalProductsProductionUnit() && !(BLANK).equalsIgnoreCase(lng.getAdditionalProductsProductionUnit()))
 		{
 			boolean additionalProductsProductionUnit=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1436,7 +1557,7 @@ public class DataValidationHelper {
 			if(!additionalProductsProductionUnit)
 				description.add(ApplicationConstants.COLUMN_HEADER_ADDITIONAL_PRODUCTS_PRODUCTION_UNIT);
 		}
-		if(null!=lng.getFeedOrInputType() && !("").equalsIgnoreCase(lng.getFeedOrInputType()))
+		if(null!=lng.getFeedOrInputType() && !(BLANK).equalsIgnoreCase(lng.getFeedOrInputType()))
 		{
 			boolean feedOrInputType=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1447,7 +1568,7 @@ public class DataValidationHelper {
 			if(!feedOrInputType)
 				description.add(ApplicationConstants.COLUMN_HEADER_FEED_OR_INPUT_TYPE);
 		}
-		if(null!=lng.getDisttributionOrOutputType() && !("").equalsIgnoreCase(lng.getDisttributionOrOutputType()))
+		if(null!=lng.getDisttributionOrOutputType() && !(BLANK).equalsIgnoreCase(lng.getDisttributionOrOutputType()))
 		{
 			boolean disttributionOrOutputType=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1458,7 +1579,7 @@ public class DataValidationHelper {
 			if(!disttributionOrOutputType)
 				description.add(ApplicationConstants.COLUMN_HEADER_DISTRIBUTION_OR_OUTPUT_TYPE);
 		}
-		if(null!=lng.getUnits() && !("").equalsIgnoreCase(lng.getUnits()))
+		if(null!=lng.getUnits() && !(BLANK).equalsIgnoreCase(lng.getUnits()))
 		{
 			boolean units=false;
 			for(int i=0;i<lngSourceList.size();i++)
@@ -1475,7 +1596,7 @@ public class DataValidationHelper {
 	{
 		logger.info("Class - DataValidationHelper - validatePipeLineSpecificFields()");
 		Set<String> description=new HashSet<String>();
-		if(null!=pipeLine.getCommodity() && !("").equalsIgnoreCase(pipeLine.getCommodity()))
+		if(null!=pipeLine.getCommodity() && !(BLANK).equalsIgnoreCase(pipeLine.getCommodity()))
 		{
 			boolean commodity=false;
 			for(int i=0;i<pipeLineSourceList.size();i++)
@@ -1486,7 +1607,7 @@ public class DataValidationHelper {
 			if(!commodity)
 				description.add(ApplicationConstants.COLUMN_HEADER_COMMODITY);
 		}
-		if(null!=pipeLine.getStartCountry() && !("").equalsIgnoreCase(pipeLine.getStartCountry()))
+		if(null!=pipeLine.getStartCountry() && !(BLANK).equalsIgnoreCase(pipeLine.getStartCountry()))
 		{
 			boolean startCountry=false;
 			for(int i=0;i<countriesList.size();i++)
@@ -1498,7 +1619,7 @@ public class DataValidationHelper {
 			if(!startCountry)
 				description.add(ApplicationConstants.COLUMN_HEADER_START_COUNTRY);
 		}
-		if(null!=pipeLine.getStartRegion() && !("").equalsIgnoreCase(pipeLine.getStartRegion()))
+		if(null!=pipeLine.getStartRegion() && !(BLANK).equalsIgnoreCase(pipeLine.getStartRegion()))
 		{
 			boolean startRegion=false;
 			for(int i=0;i<regionList.size();i++)
@@ -1510,7 +1631,7 @@ public class DataValidationHelper {
 			if(!startRegion)
 				description.add(ApplicationConstants.COLUMN_HEADER_START_REGION);
 		}
-		if(null!=pipeLine.getEndCountry() && !("").equalsIgnoreCase(pipeLine.getEndCountry()))
+		if(null!=pipeLine.getEndCountry() && !(BLANK).equalsIgnoreCase(pipeLine.getEndCountry()))
 		{
 			boolean endCountry=false;
 			for(int i=0;i<countriesList.size();i++)
@@ -1522,7 +1643,7 @@ public class DataValidationHelper {
 			if(!endCountry)
 				description.add(ApplicationConstants.COLUMN_HEADER_END_COUNTRY);
 		}
-		if(null!=pipeLine.getEndRegion() && !("").equalsIgnoreCase(pipeLine.getEndRegion()))
+		if(null!=pipeLine.getEndRegion() && !(BLANK).equalsIgnoreCase(pipeLine.getEndRegion()))
 		{
 			boolean endRegion=false;
 			for(int i=0;i<regionList.size();i++)
@@ -1534,7 +1655,7 @@ public class DataValidationHelper {
 			if(!endRegion)
 				description.add(ApplicationConstants.COLUMN_HEADER_END_REGION);
 		}
-		if(null!=pipeLine.getPipelineType() && !("").equalsIgnoreCase(pipeLine.getPipelineType()))
+		if(null!=pipeLine.getPipelineType() && !(BLANK).equalsIgnoreCase(pipeLine.getPipelineType()))
 		{
 			boolean pipelineType=false;
 			for(int i=0;i<pipeLineSourceList.size();i++)
@@ -1545,8 +1666,102 @@ public class DataValidationHelper {
 			if(!pipelineType)
 				description.add(ApplicationConstants.COLUMN_HEADER_PIPELINE_TYPE);
 		}
+		if(null!=pipeLine.getParentChildRelation() && !(BLANK).equalsIgnoreCase(pipeLine.getParentChildRelation()) && ApplicationConstants.PARENT.equalsIgnoreCase(pipeLine.getParentChildRelation()))
+		{
+			boolean pipeLineLength=false;
+			if(pipeLine.getLength()!=0)
+				pipeLineLength=true;
+			if(!pipeLineLength)
+				description.add(ApplicationConstants.COLUMN_HEADER_LENGTH);
+		}
 		return description;
 	}
+	public boolean validateOilGasType(CompanyOilGas cog)
+	{
+		boolean flag=false;
+		if(ApplicationConstants.CRUDEOIL.equalsIgnoreCase(cog.getType()) || ApplicationConstants.NATURALGAS.equalsIgnoreCase(cog.getType()))
+			flag=true;
+		return flag;	
+	}
+	public boolean validateParentChildRelation(PipeLine p)
+	{
+		boolean flag=false;
+		if(ApplicationConstants.PARENT.equalsIgnoreCase(p.getParentChildRelation()) || ApplicationConstants.CHILD.equalsIgnoreCase(p.getParentChildRelation()))
+			flag=true;
+		return flag;
+	}
+	public Set<String> validateSmallScaleLngSpecificFields(SmallScaleLng ssl,List<String> sslSourceList)throws Exception
+	{
+		logger.info("Class - DataValidationHelper - validateSmallScaleLngSpecificFields()");
+		Set<String> description=new HashSet<String>();
+		if(null!=ssl.getTechnology() && !(BLANK).equalsIgnoreCase(ssl.getTechnology()))
+		{
+			boolean technology=false;
+			for(int i=0;i<sslSourceList.size();i++)
+			{
+				if(ssl.getTechnology().trim().equalsIgnoreCase(sslSourceList.get(i)))
+					technology=true;
+			}
+			if(!technology)
+				description.add(ApplicationConstants.COLUMN_HEADER_TECHNOLOGY);
+		}
+		if(null!=ssl.getLiquefactionCapcityUnit() && !(BLANK).equalsIgnoreCase(ssl.getLiquefactionCapcityUnit()))
+		{
+			boolean liqueCapUnit=false;
+			for(int i=0;i<sslSourceList.size();i++)
+			{
+				if(ssl.getLiquefactionCapcityUnit().trim().equalsIgnoreCase(sslSourceList.get(i)))
+					liqueCapUnit=true;
+			}
+			if(!liqueCapUnit)
+				description.add(ApplicationConstants.COLUMN_HEADER_LIQUEFACATION_UNIT);
+		}
+		if(null!=ssl.getRegasificationCapcityUnit() && !(BLANK).equalsIgnoreCase(ssl.getRegasificationCapcityUnit()))
+		{
+			boolean regasCapUnit=false;
+			for(int i=0;i<sslSourceList.size();i++)
+			{
+				if(ssl.getRegasificationCapcityUnit().trim().equalsIgnoreCase(sslSourceList.get(i)))
+					regasCapUnit=true;
+			}
+			if(!regasCapUnit)
+				description.add(ApplicationConstants.COLUMN_HEADER_REGASIFICATION_UNIT);
+		}
+		if(null!=ssl.getBunkeringCapacityUnit() && !(BLANK).equalsIgnoreCase(ssl.getBunkeringCapacityUnit()))
+		{
+			boolean bunkeringCapUnit=false;
+			for(int i=0;i<sslSourceList.size();i++)
+			{
+				if(ssl.getBunkeringCapacityUnit().trim().equalsIgnoreCase(sslSourceList.get(i)))
+					bunkeringCapUnit=true;
+			}
+			if(!bunkeringCapUnit)
+				description.add(ApplicationConstants.COLUMN_HEADER_BUNKERING_UNIT);
+		}
+		if(null!=ssl.getBunkeringCapacityUnit() && !(BLANK).equalsIgnoreCase(ssl.getBunkeringCapacityUnit()))
+		{
+			boolean bunkeringCapUnit=false;
+			for(int i=0;i<sslSourceList.size();i++)
+			{
+				if(ssl.getBunkeringCapacityUnit().trim().equalsIgnoreCase(sslSourceList.get(i)))
+					bunkeringCapUnit=true;
+			}
+			if(!bunkeringCapUnit)
+				description.add(ApplicationConstants.COLUMN_HEADER_BUNKERING_UNIT);
+		}
+		if(null!=ssl.getDistributionType() && !(BLANK).equalsIgnoreCase(ssl.getDistributionType()))
+		{
+			boolean distributionType=false;
+			for(int i=0;i<sslSourceList.size();i++)
+			{
+				if(ssl.getBunkeringCapacityUnit().trim().equalsIgnoreCase(sslSourceList.get(i)))
+					distributionType=true;
+			}
+			if(!distributionType)
+				description.add(ApplicationConstants.COLUMN_HEADER_DISTRIBUTIONTYPE);
+		}
+		return description;
+	}	
 	private double round(double value)
 	{
 		return (double)(Math.round((value)*100)/100);

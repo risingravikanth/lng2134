@@ -107,6 +107,14 @@ function renderfileUploadResult(responseData)
 					{
 						styleVal='<span class="label label-info">';
 					}
+					else if(val.name=="PRODUCTION_COMPANY_OILGAS")
+					{
+						styleVal='<span class="label label-info">';
+					}
+					else if(val.name=="SMALLSCALELNG")
+					{
+						styleVal='<span class="label label-success">';
+					}
 					
 		//			alert(val.name+": "+ val.records+":"+ val.totalrecords);
 					htmlContent=htmlContent+"<tr><th scope=\"row\">"+count+"</th><td>"+styleVal+val.name+"</td><td>"+ val.records+"</td><td>"+val.totalrecords+"</td><td>"+val.description+"</td></tr>";
@@ -170,7 +178,7 @@ function historyResult(historyResponse)
 							var val=historyArray[i];					
 							
 				//			alert(val.name+": "+ val.records+":"+ val.totalrecords);
-							htmlContent=htmlContent+"<tr><th>"+count+"</th><td>"+val.email+"</td><td>"+ val.createdDate+"</td><td>"+val.exploration+"</td><td>"+val.refinery+"</td><td>"+val.crudeoil+"</td><td>"+val.naturalGas+"</td><td>"+val.storage+"</td><td>"+val.lng+"</td><td>"+val.pipeline+"</td></tr>";
+							htmlContent=htmlContent+"<tr><th>"+count+"</th><td>"+val.email+"</td><td>"+ val.createdDate+"</td><td style='text-align:center'>"+val.exploration+"</td><td style='text-align:center'>"+val.refinery+"</td><td style='text-align:center'>"+val.crudeoil+"</td><td style='text-align:center'>"+val.naturalGas+"</td><td style='text-align:center'>"+val.storage+"</td><td style='text-align:center'>"+val.lng+"</td><td style='text-align:center'>"+val.pipeline+"</td><td style='text-align:center'>"+val.companyoilgas+"</td><td style='text-align:center'>"+val.smallscalelng+"</td></tr>";
 							count++;
 						}
 					  
@@ -178,7 +186,7 @@ function historyResult(historyResponse)
 					   $("#historyTableBody").html(htmlContent);
 					   $("#historyTable").show();
 					   $('#historyTablepagination').DataTable({
-						   "aoColumnDefs": [ { "bSortable": false, "aTargets": [2,3,4,5,6,7,8,9] } ]
+						   "aoColumnDefs": [ { "bSortable": false, "aTargets": [2,3,4,5,6,7,8,9,10] } ]
 					   });
 		 }
 		
@@ -255,6 +263,7 @@ function getTabCount(countsResponse)
 				$("#lngCount").html(val.lngCount);
 				$("#storageCount").html(val.storageCount);
 				$("#pipeLineCount").html(val.pipelineCount);
+				$("#smallScaleLngCount").html(val.smallScaleLngCount);
 			}		  		 		  
 }
 // Below is the Ram code

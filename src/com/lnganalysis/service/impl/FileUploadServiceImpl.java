@@ -20,6 +20,7 @@ import com.lnganalysis.dao.domain.impl.LngDaoImpl;
 import com.lnganalysis.dao.domain.impl.NaturalGasDaoImpl;
 import com.lnganalysis.dao.domain.impl.PipelineDaoImpl;
 import com.lnganalysis.dao.domain.impl.RefineryDaoImpl;
+import com.lnganalysis.dao.domain.impl.SmallScaleLngDaoImpl;
 import com.lnganalysis.dao.domain.impl.StorageDaoImpl;
 import com.lnganalysis.dto.Tab;
 import com.lnganalysis.entities.domain.User;
@@ -146,6 +147,13 @@ public class FileUploadServiceImpl implements FileUploadService {
 		// TODO Auto-generated method stub
 		DomainDao pipeline=new PipelineDaoImpl();
 		return pipeline.getLastRecordNum();
+	}
+
+	@Override
+	public int getSmallScaleLngCount() throws Exception {
+		// TODO Auto-generated method stub
+		DomainDao ssl=new SmallScaleLngDaoImpl();
+		return ssl.getLastRecordNum();
 	} 
        
        

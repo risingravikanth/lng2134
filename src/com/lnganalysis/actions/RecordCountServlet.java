@@ -35,6 +35,7 @@ public class RecordCountServlet extends HttpServlet{
 			int lng=fus.getLngCount();
 			int storage=fus.getStorageCount();
 			int pipeline=fus.getPipeLineCount();
+			int smallScaleLngCount=fus.getSmallScaleLngCount();
 			Map tabCount=new HashMap();
 			HttpSession session=request.getSession();
 			 session.setAttribute(ApplicationConstants.EXPLORATION_COUNT,exploration);
@@ -44,6 +45,7 @@ public class RecordCountServlet extends HttpServlet{
 			 session.setAttribute(ApplicationConstants.LNG_COUNT ,lng);
 			 session.setAttribute(ApplicationConstants.STORAGE_COUNT,storage);
 			 session.setAttribute(ApplicationConstants.PIPELINE_COUNT,pipeline);
+			 session.setAttribute(ApplicationConstants.SMALLSCALELNG_COUNT,smallScaleLngCount);
 			 
 			tabCount.put(ApplicationConstants.EXPLORATION_COUNT, exploration);
 			tabCount.put(ApplicationConstants.REFINERY_COUNT, refineries);
@@ -52,7 +54,7 @@ public class RecordCountServlet extends HttpServlet{
 			tabCount.put(ApplicationConstants.LNG_COUNT, lng);
 			tabCount.put(ApplicationConstants.STORAGE_COUNT, storage);
 			tabCount.put(ApplicationConstants.PIPELINE_COUNT, pipeline);
-			
+			tabCount.put(ApplicationConstants.SMALLSCALELNG_COUNT,smallScaleLngCount);
 			String jsonResponse=JsonResponse.createRecordCountResponse(tabCount);
 			out.write(jsonResponse);
 			

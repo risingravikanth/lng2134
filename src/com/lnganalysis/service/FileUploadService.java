@@ -19,6 +19,7 @@ public interface FileUploadService {
 	public int getStorageCount()throws Exception;
 	public int getLngCount()throws Exception;
 	public int getPipeLineCount()throws Exception;
+	public int getSmallScaleLngCount()throws Exception;
 	
 	
 }

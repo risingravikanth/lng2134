@@ -14,6 +14,7 @@ import com.lnganalysis.dao.source.impl.RefinerySourceDaoImpl;
 import com.lnganalysis.dao.source.impl.RegionDaoImpl;
 import com.lnganalysis.dao.source.impl.ReportsDaoImpl;
 import com.lnganalysis.dao.source.impl.SingleSourceDaoImpl;
+import com.lnganalysis.dao.source.impl.SmallScaleLngSourceDaoImpl;
 import com.lnganalysis.dao.source.impl.StatusDaoImpl;
 import com.lnganalysis.dao.source.impl.StorageSourceDaoImpl;
 import com.lnganalysis.dao.source.impl.TypeDaoImpl;
@@ -52,7 +53,9 @@ public class DataManagementServiceImpl implements DataManagementService {
 		else if(null!=sourceType && ("region").equalsIgnoreCase(sourceType))
 			sourceDao=new RegionDaoImpl();
 		else if(null!=sourceType && ("operator").equalsIgnoreCase(sourceType))// This is singlesource
-			sourceDao=new SingleSourceDaoImpl();		
+			sourceDao=new SingleSourceDaoImpl();
+		else if(null!=sourceType && ("SmallScaleLng").equalsIgnoreCase(sourceType))
+			sourceDao=new SmallScaleLngSourceDaoImpl();
 		else if(null!=sourceType && ("status").equalsIgnoreCase(sourceType))
 			sourceDao=new StatusDaoImpl();
 		else if(null!=sourceType && ("storage").equalsIgnoreCase(sourceType))

@@ -13,6 +13,7 @@ import com.lnganalysis.dao.source.impl.PipeLineSourceDaoImpl;
 import com.lnganalysis.dao.source.impl.RefinerySourceDaoImpl;
 import com.lnganalysis.dao.source.impl.RegionDaoImpl;
 import com.lnganalysis.dao.source.impl.SingleSourceDaoImpl;
+import com.lnganalysis.dao.source.impl.SmallScaleLngSourceDaoImpl;
 import com.lnganalysis.dao.source.impl.StatusDaoImpl;
 import com.lnganalysis.dao.source.impl.StorageSourceDaoImpl;
 import com.lnganalysis.dao.source.impl.TypeDaoImpl;
@@ -23,6 +24,7 @@ import com.lnganalysis.entities.source.PipeLineSource;
 import com.lnganalysis.entities.source.RefinerySource;
 import com.lnganalysis.entities.source.Region;
 import com.lnganalysis.entities.source.SingleSource;
+import com.lnganalysis.entities.source.SmallScaleLngSource;
 import com.lnganalysis.entities.source.Status;
 import com.lnganalysis.entities.source.StorageSource;
 import com.lnganalysis.entities.source.Type;
@@ -151,5 +153,17 @@ public class SourceHelper {
 			popluateTypeList.add(type.getName());
 		}
 		return popluateTypeList;
+	}
+	public List<String> getSmallScaleLngSourceList()throws Exception
+	{
+		SourceDao smallScaleLngSourceDao=new SmallScaleLngSourceDaoImpl();
+		List<String> popluateSmallScaleLngSourceList=new ArrayList<String>();
+		List smallScaleLngSourceDaoList=smallScaleLngSourceDao.readSource();
+		for(Object sslngSourceObject:smallScaleLngSourceDaoList)
+		{
+			SmallScaleLngSource smallScaleLngSource=(SmallScaleLngSource)sslngSourceObject;
+			popluateSmallScaleLngSourceList.add(smallScaleLngSource.getName());
+		}
+		return popluateSmallScaleLngSourceList;
 	}
 }

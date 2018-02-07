@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.lnganalysis.constants.ApplicationConstants;
 import com.lnganalysis.constants.LngData;
+import com.lnganalysis.dao.domain.impl.CompanyOilGasDaoImpl;
 import com.lnganalysis.dao.domain.impl.ContractsDaoImpl;
 import com.lnganalysis.dao.domain.impl.CrudeOilDaoImpl;
 import com.lnganalysis.dao.domain.impl.ExplorationDaoImpl;
@@ -23,9 +24,11 @@ import com.lnganalysis.dao.domain.impl.LngDaoImpl;
 import com.lnganalysis.dao.domain.impl.NaturalGasDaoImpl;
 import com.lnganalysis.dao.domain.impl.PipelineDaoImpl;
 import com.lnganalysis.dao.domain.impl.RefineryDaoImpl;
+import com.lnganalysis.dao.domain.impl.SmallScaleLngDaoImpl;
 import com.lnganalysis.dao.domain.impl.StorageDaoImpl;
 import com.lnganalysis.dao.domain.impl.SupplyDemandDaoImpl;
 import com.lnganalysis.dto.Tab;
+import com.lnganalysis.entities.domain.CompanyOilGas;
 import com.lnganalysis.entities.domain.Contracts;
 import com.lnganalysis.entities.domain.CrudeOil;
 import com.lnganalysis.entities.domain.Exploration;
@@ -34,8 +37,8 @@ import com.lnganalysis.entities.domain.Lng;
 import com.lnganalysis.entities.domain.NaturalGas;
 import com.lnganalysis.entities.domain.PipeLine;
 import com.lnganalysis.entities.domain.Refinery;
+import com.lnganalysis.entities.domain.SmallScaleLng;
 import com.lnganalysis.entities.domain.Storage;
-import com.lnganalysis.entities.domain.SupplyDemand;
 import com.lnganalysis.entities.domain.User;
 import com.lnganalysis.fileupload.util.ExcelDataValidation;
 import com.lnganalysis.fileupload.util.ReadExcelFile;
@@ -114,6 +117,7 @@ public class ReadUploadedFile {
 					excelDataValidaton=new ExcelDataValidation();
 					
 					invalidDataTabList=excelDataValidaton.validateExcelData(excelSheetsData);
+//					invalidDataTabList=new ArrayList<Tab>();
 					if(invalidDataTabList.size()>0)
 					{
 						processedSheet=new HashMap<String,List<Tab>>();
@@ -257,6 +261,34 @@ public class ReadUploadedFile {
 				contractsDao.save(contractsList);
 				history.setContractsCount(contractsList.size());
 			}
+			else if(key.equalsIgnoreCase(LngData.PRODUCTION_COMPANY_OILGAS.toString()))
+			{
+				List companyOilGasList=(List)excelSheetsData.get(key);
+				CompanyOilGasDaoImpl companyOilGasDao=new CompanyOilGasDaoImpl();
+				Set<String> namesSet=new HashSet<String>();
+				for(int i=0;i<companyOilGasList.size();i++)
+				{
+					CompanyOilGas companyOilGas=(CompanyOilGas)companyOilGasList.get(i);
+					namesSet.add(companyOilGas.getName());
+				}
+				companyOilGasDao.delete(namesSet);
+				companyOilGasDao.save(companyOilGasList);
+				history.setCompanyOilGasCount(companyOilGasList.size());
+			}
+			else if(key.equalsIgnoreCase(LngData.SMALLSCALELNG.toString()))
+			{
+				List smallScaleLngList=(List)excelSheetsData.get(key);
+				SmallScaleLngDaoImpl smallScaleLngDao=new SmallScaleLngDaoImpl();
+				Set<String> namesSet=new HashSet<String>();
+				for(int i=0;i<smallScaleLngList.size();i++)
+				{
+					SmallScaleLng smallScaleLng=(SmallScaleLng)smallScaleLngList.get(i);
+					namesSet.add(smallScaleLng.getTerminalName());
+				}
+				smallScaleLngDao.delete(namesSet);
+				smallScaleLngDao.save(smallScaleLngList);
+				history.setSmallScaleLngCount(smallScaleLngList.size());
+			}
 			
 		}
 		HistoryDaoImpl historyDao=new HistoryDaoImpl();
@@ -335,6 +367,20 @@ public class ReadUploadedFile {
 				ContractsDaoImpl contractsDao=new ContractsDaoImpl();
 				contractsDao.save(contractsList);
 				history.setContractsCount(contractsList.size());
+			}
+			else if(key.equalsIgnoreCase(LngData.PRODUCTION_COMPANY_OILGAS.toString()))
+			{
+				List companyOilGasList=(List)excelSheetsData.get(key);
+				CompanyOilGasDaoImpl CompanyOilGasDao=new CompanyOilGasDaoImpl();
+				CompanyOilGasDao.save(companyOilGasList);
+				history.setCompanyOilGasCount(companyOilGasList.size());
+			}
+			else if(key.equalsIgnoreCase(LngData.SMALLSCALELNG.toString()))
+			{
+				List smallScaleLngList=(List)excelSheetsData.get(key);
+				SmallScaleLngDaoImpl smallScaleLngDao=new SmallScaleLngDaoImpl();
+				smallScaleLngDao.save(smallScaleLngList);
+				history.setSmallScaleLngCount(smallScaleLngList.size());
 			}
 			
 		}

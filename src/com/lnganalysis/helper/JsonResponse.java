@@ -21,6 +21,7 @@ import com.lnganalysis.entities.source.RefinerySource;
 import com.lnganalysis.entities.source.Region;
 import com.lnganalysis.entities.source.Report;
 import com.lnganalysis.entities.source.SingleSource;
+import com.lnganalysis.entities.source.SmallScaleLngSource;
 import com.lnganalysis.entities.source.Status;
 import com.lnganalysis.entities.source.StorageSource;
 import com.lnganalysis.entities.source.Type;
@@ -100,7 +101,8 @@ public class JsonResponse {
 			      jsonObj.put("storage",history.getStorageCount());
 			      jsonObj.put("lng",history.getLngCount());
 			      jsonObj.put("pipeline",history.getPipelinesCount());
-			      
+			      jsonObj.put("companyoilgas",history.getCompanyOilGasCount());
+			      jsonObj.put("smallscalelng",history.getSmallScaleLngCount());
 			      array.add(jsonObj);
 			}
 			
@@ -209,6 +211,17 @@ public class JsonResponse {
 					array.add(jsonObj);
 				}
 			}
+			else if(source instanceof SmallScaleLngSource)
+			{
+				
+				for(Object singleSource:sourceList)
+				{
+					JSONObject jsonObj=new JSONObject();
+					SmallScaleLngSource smallScaleLngSource=(SmallScaleLngSource)singleSource;										
+					jsonObj.put("name",smallScaleLngSource.getName());
+					array.add(jsonObj);
+				}
+			}
 			else if(source instanceof SingleSource)
 			{
 				
@@ -302,7 +315,8 @@ public class JsonResponse {
 			jsonObj.put(ApplicationConstants.NATURALGAS_COUNT, tabCount.get(ApplicationConstants.NATURALGAS_COUNT));
 			jsonObj.put(ApplicationConstants.LNG_COUNT, tabCount.get(ApplicationConstants.LNG_COUNT));
 			jsonObj.put(ApplicationConstants.STORAGE_COUNT, tabCount.get(ApplicationConstants.STORAGE_COUNT));
-			jsonObj.put(ApplicationConstants.PIPELINE_COUNT, tabCount.get(ApplicationConstants.PIPELINE_COUNT));			 			     
+			jsonObj.put(ApplicationConstants.PIPELINE_COUNT, tabCount.get(ApplicationConstants.PIPELINE_COUNT));
+			jsonObj.put(ApplicationConstants.SMALLSCALELNG_COUNT, tabCount.get(ApplicationConstants.SMALLSCALELNG_COUNT));
 			array.add(jsonObj);			
 			response=array.toString();
 		}	

@@ -51,6 +51,7 @@ public interface ApplicationConstants {
 	public static final String LNG_COUNT="lngCount";
 	public static final String STORAGE_COUNT="storageCount";
 	public static final String PIPELINE_COUNT="pipelineCount";
+	public static final String SMALLSCALELNG_COUNT="smallScaleLngCount";
 	
 	public static final String INVALID_DATA_SHEET="invalidDataSheet";
 	public static final String YES="Y";
@@ -76,6 +77,7 @@ public interface ApplicationConstants {
 	public static final String COLUMN_HEADER_STATUS="Status";
 	public static final String COLUMN_HEADER_OPERATOR="Operator";
 	public static final String COLUMN_HEADER_EQUITY_PARTNERS="Equity Partners";
+	public static final String COLUMN_HEADER_COMPANYNAME="Company Name";
 	
 	public static final String COLUMN_HEADER_TYPE="Type";
 	public static final String COLUMN_HEADER_CURRENT_OPERATOR="Current Operator";
@@ -126,6 +128,25 @@ public interface ApplicationConstants {
 	public static final String COLUMN_HEADER_END_COUNTRY="End Country";
 	public static final String COLUMN_HEADER_END_REGION="End Region";
 	public static final String COLUMN_HEADER_PIPELINE_TYPE="Pipeline Type";
+	public static final String COLUMN_HEADER_PARENT_CHILD_RELATION="Parent Child Relation";
+	public static final String COLUMN_HEADER_LENGTH="Length";
+	public static final String PARENT="P";
+	public static final String CHILD="C";
+	
+	//Production Company Oil Gas
+	public static final String CRUDEOIL="Crude Oil";
+	public static final String NATURALGAS="Natural Gas";
+	
+	//SmallScaleLng 
+	
+	public static final String COLUMN_HEADER_TECHNOLOGY="Technology";
+	public static final String COLUMN_HEADER_COMPANY="Company";
+	public static final String COLUMN_HEADER_TECHNOLOGY_PROVIDER_COMPANY="Technology Provider Company";
+	public static final String COLUMN_HEADER_LIQUEFACATION_UNIT="Liquefaction Capacity Unit";
+	public static final String COLUMN_HEADER_REGASIFICATION_UNIT="Regasification Capacity Unit";
+	public static final String COLUMN_HEADER_BUNKERING_UNIT="Bunkering Capacity Unit";
+	public static final String COLUMN_HEADER_DISTRIBUTIONTYPE="Distribution Type";
+	
 	
 	//--------- Excel Sheet column Constants End----------------
 			

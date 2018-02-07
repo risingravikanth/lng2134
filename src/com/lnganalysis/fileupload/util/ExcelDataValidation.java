@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import com.lnganalysis.constants.ApplicationConstants;
 import com.lnganalysis.constants.LngData;
 import com.lnganalysis.dto.Tab;
+import com.lnganalysis.entities.domain.CompanyOilGas;
 import com.lnganalysis.entities.domain.Contracts;
 import com.lnganalysis.entities.domain.CrudeOil;
 import com.lnganalysis.entities.domain.Exploration;
@@ -18,6 +19,7 @@ import com.lnganalysis.entities.domain.Lng;
 import com.lnganalysis.entities.domain.NaturalGas;
 import com.lnganalysis.entities.domain.PipeLine;
 import com.lnganalysis.entities.domain.Refinery;
+import com.lnganalysis.entities.domain.SmallScaleLng;
 import com.lnganalysis.entities.domain.Storage;
 import com.lnganalysis.entities.domain.SupplyDemand;
 import com.lnganalysis.helper.DataValidationHelper;
@@ -39,6 +41,8 @@ public class ExcelDataValidation {
 		Tab pipelineTab=null;
 		Tab supplyDemandTab=null;
 		Tab contractsTab=null;
+		Tab companyOilGasTab=null;
+		Tab smallScaleLngTab=null;
 		
 		List<Exploration> explorationList=null;
 		List<Refinery> refineryList=null;
@@ -49,7 +53,8 @@ public class ExcelDataValidation {
 		List<PipeLine> pipeLineList=null;
 		List<SupplyDemand> supplyDemandList=null;
 		List<Contracts> contractsList=null;
-				
+		List<CompanyOilGas> companyOilGasList=null;
+		List<SmallScaleLng> smallScaleLngList=null;
 		for(String key:keys)
 		{
 			if(key.equalsIgnoreCase(LngData.EXPLORATION.toString()))
@@ -158,6 +163,24 @@ public class ExcelDataValidation {
 				
 				if(contractsTab.getTotalRecords()>0)
 					errorTabList.add(contractsTab);
+				
+			}
+			else if(key.equalsIgnoreCase(LngData.PRODUCTION_COMPANY_OILGAS.toString()))
+			{
+				companyOilGasList=(List)listOfSheets.get(key);
+				companyOilGasTab=validateCompanyOilGasData(companyOilGasList,LngData.PRODUCTION_COMPANY_OILGAS.toString());				
+				
+				if(companyOilGasTab.getTotalRecords()>0)
+					errorTabList.add(companyOilGasTab);
+				
+			}
+			else if(key.equalsIgnoreCase(LngData.SMALLSCALELNG.toString()))
+			{
+				smallScaleLngList=(List)listOfSheets.get(key);
+				smallScaleLngTab=validateSmallScaleLngData(smallScaleLngList,LngData.SMALLSCALELNG.toString());				
+				
+				if(smallScaleLngTab.getTotalRecords()>0)
+					errorTabList.add(smallScaleLngTab);
 				
 			}
 				
@@ -686,6 +709,9 @@ public class ExcelDataValidation {
 		List<String> pipeLineSourceList=sh.getPipeLineSourceList();
 		for(PipeLine e: pipelinesList)
 		{
+			boolean validateParentChildRelation=dvh.validateParentChildRelation(e);
+			if(!validateParentChildRelation)
+				description.add(ApplicationConstants.COLUMN_HEADER_PARENT_CHILD_RELATION);
 			boolean validateStatus=dvh.validateStatus(e,statusList);
 			if(!validateStatus)
 				description.add(ApplicationConstants.COLUMN_HEADER_STATUS);
@@ -723,7 +749,7 @@ public class ExcelDataValidation {
 			
 		  
 			
-					if(!validateStatus || !validateCountries || !validateRegion || !validateOnShoreOrOffshore || !validateOperator || !validateEquityPartners || !validateEquityStakes || !validatePipeLineSpecificFields)
+					if(!validateParentChildRelation || !validateStatus || !validateCountries || !validateRegion || !validateOnShoreOrOffshore || !validateOperator || !validateEquityPartners || !validateEquityStakes || !validatePipeLineSpecificFields)
 					{
 						
 						recordsList.append(recordCount+",");
@@ -828,6 +854,135 @@ public class ExcelDataValidation {
 		logger.info("Contracts -> Rows:"+tab.getRecords()+":Total records:"+tab.getTotalRecords()+"Description:"+tab.getDescription());
 		return tab;
 		
+	}
+	private Tab validateCompanyOilGasData(List<CompanyOilGas> companyOilGasList,String tabName)throws Exception
+	{
+
+		logger.info("Class - ExcelDataValidation - validateCompanyOilGasData()");
+		int totalRecords=0;
+		StringBuffer recordsList=new StringBuffer("");
+		Tab tab=new Tab();
+		tab.setName(tabName);
+		int recordCount=2;
+		int linebreak=1;		
+		Set<String> description=new HashSet<String>();
+		DataValidationHelper dvh=new DataValidationHelper();
+		SourceHelper sh=new SourceHelper();
+		
+		List<String> countriesList=sh.getCountriesList();
+		List<String> regionsList=sh.getRegionList();
+		List<String> singleSourceList=sh.getSingleSourceList();
+		
+		for(CompanyOilGas cog: companyOilGasList)
+		{
+			boolean validateCompanyName=dvh.validateCurrentOwners(cog, singleSourceList);	
+			if(!validateCompanyName)
+				description.add(ApplicationConstants.COLUMN_HEADER_COMPANYNAME);
+			boolean validateCountries=dvh.validateCountries(cog,countriesList);
+			if(!validateCountries)
+				description.add(ApplicationConstants.COLUMN_HEADER_COUNTRY);
+			boolean validateRegions=dvh.validateRegion(cog,regionsList);
+			if(!validateRegions)
+				description.add(ApplicationConstants.COLUMN_HEADER_REGION);
+			
+			boolean oilGasType=dvh.validateOilGasType(cog);
+			if(!oilGasType)
+				description.add(ApplicationConstants.COLUMN_HEADER_TYPE);
+				
+							  		
+					if(!validateCompanyName || !validateCountries || !validateRegions || !oilGasType)
+					{
+						
+						recordsList.append(recordCount+",");
+//						if(totalRecords==(12*linebreak))
+//						{	As we have we only two columns to validate line break is not required
+//							recordsList.append(" ");// Adding space for rendering in front end;
+//							linebreak++;
+//						}	
+						totalRecords++;
+					}
+					recordCount++;
+		}
+		createTabData(tab,recordsList,description,totalRecords);
+		logger.info("CompanyOilGas -> Rows:"+tab.getRecords()+":Total records:"+tab.getTotalRecords()+"Description:"+tab.getDescription());
+		return tab;
+		
+	
+	}
+	private Tab validateSmallScaleLngData(List<SmallScaleLng> smallScaleLngList,String tabName)throws Exception
+	{
+
+		logger.info("Class - ExcelDataValidation - validateSmallScaleLngData()");
+		int totalRecords=0;
+		StringBuffer recordsList=new StringBuffer("");
+		Tab tab=new Tab();
+		tab.setName(tabName);
+		int recordCount=2;
+		int linebreak=1;		
+		Set<String> description=new HashSet<String>();
+		DataValidationHelper dvh=new DataValidationHelper();
+		SourceHelper sh=new SourceHelper();
+		
+		List<String> countriesList=sh.getCountriesList();
+		List<String> regionsList=sh.getRegionList();
+		List<String> statusList=sh.getStatusList();
+		List<String> smallScaleLngSourceList=sh.getSmallScaleLngSourceList();
+		List<String> singleSourceList=sh.getSingleSourceList();
+		
+		for(SmallScaleLng ssl: smallScaleLngList)
+		{
+			boolean validateStatus=dvh.validateStatus(ssl, statusList);	
+			if(!validateStatus)
+				description.add(ApplicationConstants.COLUMN_HEADER_STATUS);
+			
+			boolean validateType=dvh.validateType(ssl, smallScaleLngSourceList);
+			if(!validateStatus)
+				description.add(ApplicationConstants.COLUMN_HEADER_TYPE);
+			
+			boolean validateCountries=dvh.validateCountries(ssl, countriesList);
+			if(!validateCountries)
+				description.add(ApplicationConstants.COLUMN_HEADER_COUNTRY);
+			
+			boolean validateRegions=dvh.validateRegion(ssl, regionsList);
+			if(!validateRegions)
+				description.add(ApplicationConstants.COLUMN_HEADER_REGION);
+			
+			boolean validateCompany=dvh.validateCompany(ssl,singleSourceList);
+			if(!validateCompany)
+				description.add(ApplicationConstants.COLUMN_HEADER_COMPANY);
+			
+			boolean validateTechProviderComp=dvh.validateTechnologyProviderCompany(ssl,singleSourceList);
+			if(!validateTechProviderComp)
+				description.add(ApplicationConstants.COLUMN_HEADER_TECHNOLOGY_PROVIDER_COMPANY);
+			
+			boolean validateSslSpecificFields=true;
+			Set<String> sslSpecificFields=dvh.validateSmallScaleLngSpecificFields(ssl,smallScaleLngSourceList);
+			if(sslSpecificFields.size()>0)
+			{
+				validateSslSpecificFields=false;
+				description.addAll(sslSpecificFields);
+			}
+			
+				
+							  		
+					if(!validateStatus || !validateType || !validateCountries || !validateRegions || !validateCompany || !validateTechProviderComp || !validateSslSpecificFields)
+					{
+						
+						recordsList.append(recordCount+",");
+//						if(totalRecords==(12*linebreak))
+//						{	As we have we only two columns to validate line break is not required
+//							recordsList.append(" ");// Adding space for rendering in front end;
+//							linebreak++;
+//						}	
+						totalRecords++;
+					}
+					recordCount++;
+		}
+		createTabData(tab,recordsList,description,totalRecords);
+		logger.info("SmallScaleLngData -> Rows:"+tab.getRecords()+":Total records:"+tab.getTotalRecords()+"Description:"+tab.getDescription());
+		return tab;
+		
+	
 	}
 	private void createTabData(Tab tab,StringBuffer recordsList,Set<String> description,int totalRecords)
 	{
