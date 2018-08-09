@@ -40,6 +40,7 @@ public class DataManagementServiceImpl implements DataManagementService {
 	public SourceDao getSourceDao(String sourceType)
 	{
 		SourceDao sourceDao=null;
+		System.out.println("DataManagementServiceImpl.java - getSourceDao:"+sourceType);
 		if(null!=sourceType && ("ImportCountries").equalsIgnoreCase(sourceType))
 			sourceDao=new ImportCountriesDaoImpl();	
 		else if(null!=sourceType && ("countries").equalsIgnoreCase(sourceType))
@@ -55,7 +56,7 @@ public class DataManagementServiceImpl implements DataManagementService {
 		else if(null!=sourceType && ("operator").equalsIgnoreCase(sourceType))// This is singlesource
 			sourceDao=new SingleSourceDaoImpl();
 		else if(null!=sourceType && ("SmallScaleLng").equalsIgnoreCase(sourceType))
-			sourceDao=new SmallScaleLngSourceDaoImpl();
+				sourceDao=new SmallScaleLngSourceDaoImpl();		
 		else if(null!=sourceType && ("status").equalsIgnoreCase(sourceType))
 			sourceDao=new StatusDaoImpl();
 		else if(null!=sourceType && ("storage").equalsIgnoreCase(sourceType))

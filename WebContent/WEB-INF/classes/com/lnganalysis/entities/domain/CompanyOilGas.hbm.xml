@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.lnganalysis.entities.domain">
+	<class name="CompanyOilGas" table="prod_company_oil_gas">
+		<id name="id">
+			<generator class="increment"/>
+		</id>	
+			<property name="name" type="string"/> 
+			<property name="region" type="string"/>
+			<property name="country" type="string"/>
+			<property name="type" type="string"/>	
+			<property name="year2005" type="double"/>
+			<property name="year2006" type="double"/>
+			<property name="year2007" type="double"/>
+			<property name="year2008" type="double"/>
+			<property name="year2009" type="double"/>
+			<property name="year2010" type="double"/>
+			<property name="year2011" type="double"/>
+			<property name="year2012" type="double"/>
+			<property name="year2013" type="double"/>
+			<property name="year2014" type="double"/>
+			<property name="year2015" type="double"/>
+			<property name="year2016" type="double"/>
+			<property name="year2017" type="double"/>
+			<property name="notes" type="string"/>
+			<property name="source2005" type="string"/>
+			<property name="source2006" type="string"/>
+			<property name="source2007" type="string"/>
+			<property name="source2008" type="string"/>
+			<property name="source2009" type="string"/>
+			<property name="source2010" type="string"/>
+			<property name="source2011" type="string"/>
+			<property name="source2012" type="string"/>
+			<property name="source2013" type="string"/>
+			<property name="source2014" type="string"/>
+			<property name="source2015" type="string"/>
+			<property name="source2016" type="string"/>
+			<property name="source2017" type="string"/>
+	</class>
+	
+</hibernate-mapping>	

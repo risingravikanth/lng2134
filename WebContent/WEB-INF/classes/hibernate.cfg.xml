@@ -35,6 +35,8 @@
 		<mapping resource="com/lnganalysis/entities/domain/PipeLine.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/domain/SupplyDemand.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/domain/Contracts.hbm.xml"></mapping>
+		<mapping resource="com/lnganalysis/entities/domain/CompanyOilGas.hbm.xml"></mapping>
+		<mapping resource="com/lnganalysis/entities/domain/SmallScaleLng.hbm.xml"></mapping>
 		
 		<mapping resource="com/lnganalysis/entities/source/ImportCountries.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/source/Countries.hbm.xml"></mapping>
@@ -43,6 +45,7 @@
 		<mapping resource="com/lnganalysis/entities/source/Status.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/source/Type.hbm.xml"></mapping>	
 		<mapping resource="com/lnganalysis/entities/source/RefinerySource.hbm.xml"></mapping>
+		<mapping resource="com/lnganalysis/entities/source/SmallScaleLngSource.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/source/StorageSource.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/source/LngSource.hbm.xml"></mapping>
 		<mapping resource="com/lnganalysis/entities/source/PipeLineSource.hbm.xml"></mapping>

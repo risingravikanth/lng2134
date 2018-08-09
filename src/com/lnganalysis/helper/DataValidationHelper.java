@@ -1737,18 +1737,7 @@ public class DataValidationHelper {
 			}
 			if(!bunkeringCapUnit)
 				description.add(ApplicationConstants.COLUMN_HEADER_BUNKERING_UNIT);
-		}
-		if(null!=ssl.getBunkeringCapacityUnit() && !(BLANK).equalsIgnoreCase(ssl.getBunkeringCapacityUnit()))
-		{
-			boolean bunkeringCapUnit=false;
-			for(int i=0;i<sslSourceList.size();i++)
-			{
-				if(ssl.getBunkeringCapacityUnit().trim().equalsIgnoreCase(sslSourceList.get(i)))
-					bunkeringCapUnit=true;
-			}
-			if(!bunkeringCapUnit)
-				description.add(ApplicationConstants.COLUMN_HEADER_BUNKERING_UNIT);
-		}
+		}		
 		if(null!=ssl.getDistributionType() && !(BLANK).equalsIgnoreCase(ssl.getDistributionType()))
 		{
 			boolean distributionType=false;

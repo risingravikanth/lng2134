@@ -133,10 +133,10 @@ public class ReadExcelFile {
 			else if(sheet.getSheetName().equalsIgnoreCase(LngData.SMALLSCALELNG.toString()))
 			{
 				Tab tab=new Tab();
-				List<SmallScaleLng> companyOilGasList=populateSmallScaleLng(sheet,tab);
+				List<SmallScaleLng> smallScaleLngList=populateSmallScaleLng(sheet,tab);
 				if(tab!=null && tab.getTotalRecords()>0)
 					tabsList.add(tab);
-				populatedData.put(sheet.getSheetName(), companyOilGasList);
+				populatedData.put(sheet.getSheetName(), smallScaleLngList);
 			}
 		}
 		
@@ -203,6 +203,13 @@ public class ReadExcelFile {
 				columnNamesSet.add(columnName);				
 				
 			}
+		}
+		if(totalRecords>0)
+		{
+			
+			createTabData(tab,sheet.getSheetName().toUpperCase(),totalRecords,recordsList,columnNamesSet);
+			logger.info("smallScaleLng reading excel failure");
+			logger.info("smallScaleLng totalRecords:"+ totalRecords+"recordsList:"+recordsList);
 		}
 		return smallScaleLngList;
 	
@@ -275,6 +282,12 @@ public class ReadExcelFile {
 				columnNamesSet.add(columnName);				
 				
 			}
+		}
+		if(totalRecords>0)
+		{
+			
+			createTabData(tab,sheet.getSheetName().toUpperCase(),totalRecords,recordsList,columnNamesSet);
+			logger.info("CompanyOilGas totalRecords:"+ totalRecords+"recordsList:"+recordsList);
 		}
 		return companyOilGasList;
 	}

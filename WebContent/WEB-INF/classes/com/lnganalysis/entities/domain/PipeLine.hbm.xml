@@ -3,12 +3,13 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.lnganalysis.entities.domain">
-	<class name="PipeLine">
+	<class name="PipeLine" table="pipeline">
 		<id name="id">
 			<generator class="increment"/>
 		</id>	
 		<property name="pipeline" type="string"/>
 		<property name="subPipelines" type="string"/>
+		<property name="parentChildRelation" type="string" column="parent_child_relation"/>
 		<property name="status" type="string"/>
 		<property  name="commodity" type="string"/>
 		<property name="startPoint" type="string"/>
@@ -32,7 +33,7 @@
 		<property name="companySource" type="string"/>
 		<property name="companyNotes" type="string"/>
 		<property name="length" type="double"/>
-		<property name="diameter" type="string"/>
+		<property name="diameter" type="double"/>
 		<property name="capacity" type="double"/>
 		<property name="capex" type="double"/>
 		<property name="parameterSource" type="string"/>

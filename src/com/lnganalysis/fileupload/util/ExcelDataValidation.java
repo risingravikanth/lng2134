@@ -936,7 +936,7 @@ public class ExcelDataValidation {
 				description.add(ApplicationConstants.COLUMN_HEADER_STATUS);
 			
 			boolean validateType=dvh.validateType(ssl, smallScaleLngSourceList);
-			if(!validateStatus)
+			if(!validateType)
 				description.add(ApplicationConstants.COLUMN_HEADER_TYPE);
 			
 			boolean validateCountries=dvh.validateCountries(ssl, countriesList);
@@ -961,13 +961,10 @@ public class ExcelDataValidation {
 			{
 				validateSslSpecificFields=false;
 				description.addAll(sslSpecificFields);
-			}
-			
-				
-							  		
-					if(!validateStatus || !validateType || !validateCountries || !validateRegions || !validateCompany || !validateTechProviderComp || !validateSslSpecificFields)
-					{
-						
+			}		
+			if(!validateStatus || !validateType || !validateCountries || !validateRegions || !validateCompany || !validateTechProviderComp || !validateSslSpecificFields)
+			{
+						logger.info("SmallScaleLngData -> validation failure");
 						recordsList.append(recordCount+",");
 //						if(totalRecords==(12*linebreak))
 //						{	As we have we only two columns to validate line break is not required
@@ -975,8 +972,8 @@ public class ExcelDataValidation {
 //							linebreak++;
 //						}	
 						totalRecords++;
-					}
-					recordCount++;
+			}
+			recordCount++;
 		}
 		createTabData(tab,recordsList,description,totalRecords);
 		logger.info("SmallScaleLngData -> Rows:"+tab.getRecords()+":Total records:"+tab.getTotalRecords()+"Description:"+tab.getDescription());
